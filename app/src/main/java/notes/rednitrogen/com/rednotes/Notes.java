@@ -316,6 +316,11 @@ public class Notes extends AppCompatActivity {
         //Log.d("position", String.valueOf(position));
     }
 
+
+    /**
+     * To stop memory leak when activity relaunched while
+     * the alert dialog box is still open, need to dismiss.
+     */
     @Override
     protected void onStop() {
         super.onStop();
