@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6130c16"
+    android:padding="@dimen/widget_margin"
+    android:id="@+id/widget_layout"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/widget_header"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:padding="8dp">
+
+        <android.widget.ImageView
+            android:id="@+id/appwidget_logo"
+            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:src="@drawable/appwidget_logo" />
+        <TextView
+            android:id="@+id/appwidget_title"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/lbl_new_note_title"
+            android:layout_marginLeft="8dp"
+            android:textColor="#FFFFFF"
+            android:layout_toRightOf="@id/appwidget_logo"
+            android:text="@string/lbl_new_note_title" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/appwidget_text"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="8dp"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"/>
+
+</LinearLayout>
