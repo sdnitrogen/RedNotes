@@ -8,4 +8,5 @@
     <string name="title_activity_notes">Notes</string>
     <string name="add_widget">Add widget</string>
     <string name="appwidget_text">Lorem ipsum dolor sit amet.</string>
+    <string name="delete">DELETE</string>
 </resources>

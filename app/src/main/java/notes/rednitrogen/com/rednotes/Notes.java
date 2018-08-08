@@ -22,6 +22,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,10 +39,11 @@ import notes.rednitrogen.com.rednotes.R;
 import notes.rednitrogen.com.rednotes.database.DatabaseHelper;
 import notes.rednitrogen.com.rednotes.database.model.Note;
 import notes.rednitrogen.com.rednotes.utils.MyDividerItemDecoration;
+import notes.rednitrogen.com.rednotes.utils.RecyclerItemTouchHelper;
 import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
 import notes.rednitrogen.com.rednotes.widget.RedNotesWidget;
 
-public class Notes extends AppCompatActivity {
+public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     private NotesAdapter mAdapter;
     private List<Note> notesList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
@@ -83,6 +85,13 @@ public class Notes extends AppCompatActivity {
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
 
+        // adding item touch helper
+        // only ItemTouchHelper.LEFT added to detect Right to Left swipe
+        // if you want both Right -> Left and Left -> Right
+        // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
         toggleEmptyNotes();
 
         /**
@@ -110,6 +119,35 @@ public class Notes extends AppCompatActivity {
             showNoteDialog(true, notesList.get(pos), pos);
             NotificationManagerCompat manager = NotificationManagerCompat.from(this);
             manager.cancel(pos);
+        }
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof NotesAdapter.MyViewHolder) {
+            // get the removed item name to display it in snack bar
+            String title = notesList.get(viewHolder.getAdapterPosition()).getTitle();
+
+            // backup of removed item for undo purpose
+            final Note deletedItem = notesList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            // remove the item from recycler view
+            mAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            // showing snack bar with Undo option
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "'"+title+"'" + " removed from list!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item
+                    mAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
         }
     }
 

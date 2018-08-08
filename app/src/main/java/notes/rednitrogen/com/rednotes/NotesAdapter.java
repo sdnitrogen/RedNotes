@@ -6,6 +6,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -27,6 +28,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         public TextView title;
         public TextView dot;
         public TextView timestamp;
+        public RelativeLayout viewBackground, viewForeground;
 
         public MyViewHolder(View view) {
             super(view);
@@ -34,6 +36,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
             title = view.findViewById(R.id.note_title);
             dot = view.findViewById(R.id.dot);
             timestamp = view.findViewById(R.id.timestamp);
+            viewBackground = view.findViewById(R.id.view_background);
+            viewForeground = view.findViewById(R.id.view_foreground);
         }
     }
 
@@ -86,5 +90,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         }
 
         return "";
+    }
+
+    public void removeItem(int position) {
+        notesList.remove(position);
+        // notify the item removed by position
+        // to perform recycler view delete animations
+        // NOTE: don't call notifyDataSetChanged()
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Note note, int position) {
+        notesList.add(position, note);
+        // notify item added by position
+        notifyItemInserted(position);
     }
 }

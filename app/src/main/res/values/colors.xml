@@ -3,6 +3,7 @@
     <color name="colorPrimary">#FF0000</color>
     <color name="colorPrimaryDark">#FF0000</color>
     <color name="colorAccent">#E50000</color>
+    <color name="bg_row_background">#fa315b</color>
     <color name="msg_no_notes">#999</color>
     <color name="hint_enter_note">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
