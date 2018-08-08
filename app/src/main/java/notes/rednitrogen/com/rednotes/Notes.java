@@ -3,6 +3,8 @@ package notes.rednitrogen.com.rednotes;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,11 +31,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
 import notes.rednitrogen.com.rednotes.R;
 import notes.rednitrogen.com.rednotes.database.DatabaseHelper;
 import notes.rednitrogen.com.rednotes.database.model.Note;
 import notes.rednitrogen.com.rednotes.utils.MyDividerItemDecoration;
 import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
+import notes.rednitrogen.com.rednotes.widget.RedNotesWidget;
 
 public class Notes extends AppCompatActivity {
     private NotesAdapter mAdapter;
@@ -171,9 +175,12 @@ public class Notes extends AppCompatActivity {
      * Delete - 0
      */
     private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Share", "Add to Notification", "Delete"};
+        CharSequence colors[] = new CharSequence[]{"Share", "Add to Notification", "Add to Widget", "Delete"};
 
         final Note note = notesList.get(position);
+
+        //Init Paper
+        Paper.init(this);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose option");
@@ -193,6 +200,12 @@ public class Notes extends AppCompatActivity {
                     String noteTitle = note.getTitle();
                     String noteText = note.getNote();
                     createNotification(noteTitle, noteText, position);
+                }
+                else if(which == 2){
+                    Paper.book().write("position",position);
+                    Paper.book().write("title",note.getTitle());
+                    Paper.book().write("note",note.getNote());
+                    updateWidget();
                 }
                 else {
                     deleteNote(position);
@@ -258,6 +271,11 @@ public class Notes extends AppCompatActivity {
                 if (shouldUpdate && note != null) {
                     // update note by it's id
                     updateNote(dialogTitle.getText().toString(), inputNote.getText().toString(), position);
+                    if((Integer)Paper.book().read("position") == position){
+                        Paper.book().write("title",note.getTitle());
+                        Paper.book().write("note",note.getNote());
+                        updateWidget();
+                    }
                 } else {
                     // create new note
                     createNote(dialogTitle.getText().toString(), inputNote.getText().toString());
@@ -314,6 +332,16 @@ public class Notes extends AppCompatActivity {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(position, mBuilder.build());
         //Log.d("position", String.valueOf(position));
+    }
+
+    private void updateWidget(){
+        Intent intent = new Intent(this, RedNotesWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, RedNotesWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 
 
