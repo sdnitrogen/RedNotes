@@ -20,6 +20,7 @@ android note-taking app that does more than taking notes.
 - [x] ~~Swipe to delete and undo
 - [ ] Navigation drawer from left
 - [ ] Implement To-do Activity
+- [ ] Rich text format
 - [ ] Implement Reminder
   - [ ] Add to Reminder
 - [ ] Implement Trash
