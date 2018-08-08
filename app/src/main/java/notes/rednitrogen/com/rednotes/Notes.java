@@ -367,7 +367,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         PendingIntent pIntent = PendingIntent.getActivity(this,(int) System.currentTimeMillis(),actionIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "default")
-                .setSmallIcon(R.drawable.notification_icon)
+                .setSmallIcon(R.drawable.ic_notification_black_24dp)
                 .setContentTitle(textTitle)
                 .setContentText(textContent)
                 .setStyle(new NotificationCompat.BigTextStyle()

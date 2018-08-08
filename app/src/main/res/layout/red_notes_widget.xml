@@ -18,7 +18,7 @@
             android:id="@+id/appwidget_logo"
             android:layout_height="match_parent"
             android:layout_width="40dp"
-            android:src="@drawable/appwidget_logo" />
+            android:src="@drawable/ic_widget_white_24dp" />
         <TextView
             android:id="@+id/appwidget_title"
             android:layout_height="match_parent"
