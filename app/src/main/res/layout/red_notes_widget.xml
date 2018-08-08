@@ -39,7 +39,10 @@
         android:layout_marginBottom="8dp"
         android:padding="8dp"
         android:textColor="#FFFFFF"
-        android:textSize="15dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeStepGranularity="2sp"
         android:layout_height="match_parent"
         android:background="@drawable/border"/>
 
