@@ -8,8 +8,4 @@
     <color name="hint_enter_note">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
     <color name="note_list_text">#232323</color>
-    <color name="colorWelcomeDark">#273833</color>
-    <color name="black">#000</color>
-    <color name="lightOrange">#fdf2df</color>
-    <color name="lightDarkOrange">#ebd6ab</color>
 </resources>
