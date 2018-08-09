@@ -17,29 +17,29 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/welcome_logo"
+            android:src="@drawable/welcomelogo"
             android:layout_gravity="center"
             />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center"
+        android:gravity="bottom"
         android:id="@+id/l2">
 
         <ImageButton
             android:id="@+id/buttongo"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_margin="16dp"
+            android:layout_margin="30dp"
             android:elevation="8dp"
             android:background="@drawable/buttonstyle"
             android:src="@drawable/ic_arrow_forward_white_24dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="bottom|center" />
 
     </LinearLayout>
 
