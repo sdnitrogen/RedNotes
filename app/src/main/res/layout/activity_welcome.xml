@@ -38,8 +38,8 @@
             android:layout_margin="30dp"
             android:elevation="8dp"
             android:background="@drawable/buttonstyle"
-            android:src="@drawable/ic_arrow_forward_white_24dp"
-            android:layout_gravity="bottom|center" />
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/ic_arrow_forward_white_24dp" />
 
     </LinearLayout>
 
