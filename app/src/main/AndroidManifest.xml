@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Welcome"
+        <activity
+            android:name=".Welcome"
             android:label="@string/launcher_name"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
@@ -21,8 +22,7 @@
         <activity
             android:name=".Notes"
             android:label="@string/activity_title_home"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <receiver android:name=".widget.RedNotesWidget">
             <intent-filter>
@@ -33,6 +33,17 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/red_notes_widget_info" />
         </receiver>
+
+        <service
+            android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".widget.WidgetConfig"
+            android:label="Choose Note">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

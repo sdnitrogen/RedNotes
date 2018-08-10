@@ -219,7 +219,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
      * Delete - 0
      */
     private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Share", "Copy Note", "Add to Notification", "Add to Widget", "Delete"};
+        CharSequence colors[] = new CharSequence[]{"Share", "Copy Note", "Add to Notification", "Delete"};
 
         final Note note = notesList.get(position);
 
@@ -249,17 +249,6 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                     String noteTitle = note.getTitle();
                     String noteText = note.getNote();
                     createNotification(noteTitle, noteText, position);
-                }
-                else if(which == 3){
-                    Paper.book().write("position",position);
-                    Paper.book().write("title",note.getTitle());
-                    Paper.book().write("note",note.getNote());
-                    updateWidget();
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Note added to Widget", Snackbar.LENGTH_SHORT);
-                    View sbView = snackbar.getView();
-                    TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.YELLOW);
-                    snackbar.show();
                 }
                 else {
                     deleteNote(position);
@@ -325,11 +314,6 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 if (shouldUpdate && note != null) {
                     // update note by it's id
                     updateNote(dialogTitle.getText().toString(), inputNote.getText().toString(), position);
-                    if((Integer)Paper.book().read("position") == position){
-                        Paper.book().write("title",note.getTitle());
-                        Paper.book().write("note",note.getNote());
-                        updateWidget();
-                    }
                 } else {
                     // create new note
                     createNote(dialogTitle.getText().toString(), inputNote.getText().toString());
@@ -389,18 +373,6 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         notificationManager.notify(position, mBuilder.build());
         //Log.d("position", String.valueOf(position));
     }
-
-    // widget data sender
-    private void updateWidget(){
-        Intent intent = new Intent(this, RedNotesWidget.class);
-        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
-        // since it seems the onUpdate() is only fired on that:
-        int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, RedNotesWidget.class));
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-        sendBroadcast(intent);
-    }
-
 
     /**
      * To stop memory leak when activity relaunched while
