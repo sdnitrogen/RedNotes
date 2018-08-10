@@ -5,6 +5,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -217,7 +219,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
      * Delete - 0
      */
     private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Share", "Add to Notification", "Add to Widget", "Delete"};
+        CharSequence colors[] = new CharSequence[]{"Share", "Copy Note", "Add to Notification", "Add to Widget", "Delete"};
 
         final Note note = notesList.get(position);
 
@@ -237,13 +239,18 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                     startActivity(shareIntent);
                 }
                 else if(which == 1){
-                    //showNoteDialog(true, notesList.get(position), position);
-
+                    String noteText = note.getNote();
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("note", noteText);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(Notes.this, "Note copied to clipboard!", Toast.LENGTH_SHORT).show();
+                }
+                else if(which == 2){
                     String noteTitle = note.getTitle();
                     String noteText = note.getNote();
                     createNotification(noteTitle, noteText, position);
                 }
-                else if(which == 2){
+                else if(which == 3){
                     Paper.book().write("position",position);
                     Paper.book().write("title",note.getTitle());
                     Paper.book().write("note",note.getNote());
