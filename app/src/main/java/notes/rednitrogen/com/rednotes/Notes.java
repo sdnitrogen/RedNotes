@@ -1,5 +1,6 @@
 package notes.rednitrogen.com.rednotes;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -353,7 +354,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel channel = new NotificationChannel("default",
                 "Channel name",
-                NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationManager.IMPORTANCE_HIGH);
         channel.setDescription("Channel description");
         notificationManager.createNotificationChannel(channel);
     }
@@ -367,12 +368,14 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         PendingIntent pIntent = PendingIntent.getActivity(this,(int) System.currentTimeMillis(),actionIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "default")
-                .setSmallIcon(R.drawable.ic_notification_black_24dp)
+                .setSmallIcon(R.drawable.ic_notification_icon)
+                .setColor(Color.RED)
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setContentTitle(textTitle)
                 .setContentText(textContent)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(textContent))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .addAction(0,"Edit",pIntent);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(position, mBuilder.build());

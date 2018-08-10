@@ -19,6 +19,7 @@
         android:textCursorDrawable="@null"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/lbl_new_note_title"
+        android:maxLength="20"
         android:textStyle="normal" />
 
     <View
