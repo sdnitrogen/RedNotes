@@ -23,6 +23,7 @@ public class Welcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        // Shared preference to check first time appearance only
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         firstTime = sharedPreferences.getBoolean("firstTime", true);
 

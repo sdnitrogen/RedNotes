@@ -113,6 +113,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             }
         }));
 
+        // get the notification id correspondiing to the one to be edited and dismiss it.
         String identity = getIntent().getStringExtra("identity");
         if(identity != null && identity.equals("notification")){
             int pos = getIntent().getIntExtra("position",0);
@@ -382,6 +383,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         //Log.d("position", String.valueOf(position));
     }
 
+    // widget data sender
     private void updateWidget(){
         Intent intent = new Intent(this, RedNotesWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);

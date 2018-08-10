@@ -7,7 +7,7 @@ import android.view.View;
 
 import notes.rednitrogen.com.rednotes.NotesAdapter;
 
-
+// recycler list item swipe action adapter
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private RecyclerItemTouchHelperListener listener;
 

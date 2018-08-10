@@ -43,6 +43,7 @@ public class RedNotesWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
+    // receive intent on touch og widget to open app
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);

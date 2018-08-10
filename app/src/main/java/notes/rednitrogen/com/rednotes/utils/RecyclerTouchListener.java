@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-
+// recycle list item touch control adapter
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     private ClickListener clicklistener;

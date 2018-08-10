@@ -25,6 +25,7 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Context context;
     private int margin;
 
+    // divider for recyclerview list
     public MyDividerItemDecoration(Context context, int orientation, int margin) {
         this.context = context;
         this.margin = margin;

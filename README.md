@@ -22,7 +22,7 @@ android note-taking app that does more than taking notes.
 - [ ] Navigation drawer from left
 - [ ] Implement To-do Activity
 - [ ] Rich text format
-- [ ] Design App Logo
+- [x] Design App Logo
 - [ ] Implement Reminder
   - [ ] Add to Reminder
 - [ ] Implement Trash
