@@ -223,9 +223,6 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
 
         final Note note = notesList.get(position);
 
-        //Init Paper
-        Paper.init(this);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose option");
         builder.setItems(colors, new DialogInterface.OnClickListener() {
@@ -373,6 +370,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         notificationManager.notify(position, mBuilder.build());
         //Log.d("position", String.valueOf(position));
     }
+
 
     /**
      * To stop memory leak when activity relaunched while

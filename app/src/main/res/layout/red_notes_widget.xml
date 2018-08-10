@@ -11,9 +11,10 @@
         android:orientation="horizontal"
         android:layout_gravity="top"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="32dp"
         android:layout_marginBottom="8dp"
-        android:padding="8dp">
+        android:layout_marginTop="4dp"
+        android:padding="4dp">
 
         <android.widget.ImageView
             android:id="@+id/appwidget_logo"
@@ -32,7 +33,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:textColor="#FFFFFF"
-            android:text="@string/lbl_new_note_title"
+            android:text="loading..."
+            android:textStyle="bold"
             android:layout_weight="0.8"/>
         <android.widget.ImageView
             android:id="@+id/appwidget_refresh"
@@ -43,18 +45,20 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/border"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/widget_listview"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </FrameLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 </LinearLayout>

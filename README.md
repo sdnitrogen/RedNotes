@@ -19,8 +19,9 @@ android note-taking app that does more than taking notes.
 - [x] ~~Auto update widget when database update
 - [x] ~~Swipe to delete and undo
 - [x] Add splash screen to avoid app name issue
-- [ ] Advanced multiple widgets
-  - [ ] blank widget with + and refresh
+- [x] Advanced multiple widgets
+  - [ ] animated loader
+  - [ ] updated preview
 - [x] Implement copy note
 - [ ] Navigation drawer from left
 - [ ] Implement To-do Activity
