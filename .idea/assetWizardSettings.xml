@@ -33,6 +33,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="ff003e" />
                                       <entry key="backgroundImage" value="C:\Users\SaikatDatta\Downloads\[i.imgur.com]_d77a_afWBHRK.png" />
                                       <entry key="foregroundImage" value="C:\Users\SaikatDatta\Downloads\ic_launcher\web_hi_res_512.png" />
                                       <entry key="legacyIconShape" value="CIRCLE" />
