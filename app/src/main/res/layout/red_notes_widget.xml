@@ -36,12 +36,14 @@
             android:text="loading..."
             android:textStyle="bold"
             android:layout_weight="0.8"/>
-        <android.widget.ImageView
+
+        <ImageButton
             android:id="@+id/appwidget_refresh"
-            android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_widget_refresh_white_24dp"
-            android:layout_weight="0.1"/>
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_weight="0.1"
+            android:src="@drawable/ic_widget_refresh_white_24dp" />
 
     </LinearLayout>
 

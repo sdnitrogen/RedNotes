@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import java.util.ArrayList;
@@ -26,6 +25,8 @@ import static notes.rednitrogen.com.rednotes.widget.WidgetConfig.SHARED_PREFS;
  * Implementation of App Widget functionality.
  */
 public class RedNotesWidget extends AppWidgetProvider {
+
+    public static final String CLICK_ACTION = "click";
 
     private List<Note> notesList = new ArrayList<>();
     private DatabaseHelper db;
@@ -58,8 +59,14 @@ public class RedNotesWidget extends AppWidgetProvider {
             serviceIntent.putExtra("noteText", notesList.get(position).getNote());
             serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
+            Intent clickintent = new Intent(context, RedNotesWidget.class);
+            clickintent.setAction(CLICK_ACTION);
+            clickintent.putExtra("position", position);
+            PendingIntent clickPendingIntent = PendingIntent.getBroadcast(context,0, clickintent,0);
+
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.red_notes_widget);
             views.setOnClickPendingIntent(R.id.widget_layout,pendingIntent);
+            views.setPendingIntentTemplate(R.id.widget_listview,clickPendingIntent);
             views.setOnClickPendingIntent(R.id.appwidget_refresh,pInt);
             views.setTextViewText(R.id.appwidget_title, notesList.get(position).getTitle());
             views.setRemoteAdapter(R.id.widget_listview, serviceIntent);
@@ -77,6 +84,18 @@ public class RedNotesWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if(CLICK_ACTION.equals(intent.getAction())){
+            Intent mainintent = new Intent(context, Notes.class);
+            mainintent.putExtra("identity", "notification");
+            mainintent.putExtra("position", intent.getIntExtra("position", 0));
+            context.startActivity(mainintent);
+        }
+
+        super.onReceive(context, intent);
     }
 }
 

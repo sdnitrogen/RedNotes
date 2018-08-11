@@ -22,6 +22,7 @@ android note-taking app that does more than taking notes.
 - [x] Advanced multiple widgets
   - [ ] animated loader
   - [ ] updated preview
+  - [x] clickable listview
 - [x] Implement copy note
 - [ ] Navigation drawer from left
 - [ ] Implement To-do Activity

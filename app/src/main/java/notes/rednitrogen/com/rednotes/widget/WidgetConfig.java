@@ -28,6 +28,8 @@ import notes.rednitrogen.com.rednotes.database.model.Note;
 import notes.rednitrogen.com.rednotes.utils.MyDividerItemDecoration;
 import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
 
+import static notes.rednitrogen.com.rednotes.widget.RedNotesWidget.CLICK_ACTION;
+
 public class WidgetConfig extends AppCompatActivity {
 
     public static final String SHARED_PREFS = "prefs";
@@ -120,8 +122,14 @@ public class WidgetConfig extends AppCompatActivity {
         serviceIntent.putExtra("noteText", note.getNote());
         serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
+        Intent clickintent = new Intent(this, RedNotesWidget.class);
+        clickintent.setAction(CLICK_ACTION);
+        clickintent.putExtra("position", position);
+        PendingIntent clickPendingIntent = PendingIntent.getBroadcast(this,0, clickintent,0);
+
         RemoteViews views = new RemoteViews(this.getPackageName(), R.layout.red_notes_widget);
         views.setOnClickPendingIntent(R.id.widget_layout,pendingIntent);
+        views.setPendingIntentTemplate(R.id.widget_listview,clickPendingIntent);
         views.setOnClickPendingIntent(R.id.appwidget_refresh,pInt);
         views.setTextViewText(R.id.appwidget_title, note.getTitle());
         views.setRemoteAdapter(R.id.widget_listview, serviceIntent);
