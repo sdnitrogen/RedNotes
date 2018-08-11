@@ -365,6 +365,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(textContent))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .addAction(0,"Edit",pIntent);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(position, mBuilder.build());
