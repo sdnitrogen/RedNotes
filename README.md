@@ -20,7 +20,7 @@ android note-taking app that does more than taking notes.
 - [x] ~~Swipe to delete and undo
 - [x] Add splash screen to avoid app name issue
 - [x] Advanced multiple widgets
-  - [ ] updated preview
+  - [x] updated preview
   - [x] clickable listview
 - [x] Implement copy note
 - [ ] Implement search functionality
