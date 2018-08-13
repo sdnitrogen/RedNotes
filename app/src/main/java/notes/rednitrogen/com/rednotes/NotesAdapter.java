@@ -105,4 +105,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         // notify item added by position
         notifyItemInserted(position);
     }
+
+    public void setNotesList(List<Note> notesList){
+        this.notesList = notesList;
+        notifyDataSetChanged();
+    }
 }

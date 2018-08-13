@@ -4,10 +4,8 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,22 +27,24 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import io.paperdb.Paper;
 import notes.rednitrogen.com.rednotes.R;
 import notes.rednitrogen.com.rednotes.database.DatabaseHelper;
 import notes.rednitrogen.com.rednotes.database.model.Note;
 import notes.rednitrogen.com.rednotes.utils.MyDividerItemDecoration;
 import notes.rednitrogen.com.rednotes.utils.RecyclerItemTouchHelper;
 import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
-import notes.rednitrogen.com.rednotes.widget.RedNotesWidget;
 
 public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     private NotesAdapter mAdapter;
@@ -52,6 +52,9 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     private CoordinatorLayout coordinatorLayout;
     private RecyclerView recyclerView;
     private TextView noNotesView;
+
+    private MaterialSearchView searchView;
+    private String currentQuery;
 
     private DatabaseHelper db;
 
@@ -123,6 +126,66 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             showNoteDialog(true, notesList.get(pos), pos);
             NotificationManagerCompat manager = NotificationManagerCompat.from(this);
             manager.cancel(pos);
+        }
+    }
+
+    private void processQuery(String query) {
+        currentQuery = query;
+        List<Note> result = new ArrayList<>();
+
+        for(Note forNote : notesList){
+            if(forNote.getNote().toLowerCase().contains(query.toLowerCase()) || forNote.getTitle().toLowerCase().contains(query.toLowerCase())){
+                result.add(forNote);
+            }
+        }
+        mAdapter.setNotesList(result);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_notes, menu);
+        searchView = findViewById(R.id.search_view);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                processQuery(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                processQuery(newText);
+                return true;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+                searchView.setQuery(currentQuery, false);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+                currentQuery = "";
+                mAdapter.setNotesList(notesList);
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        } else {
+            super.onBackPressed();
         }
     }
 

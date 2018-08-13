@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import io.paperdb.Paper;
 import notes.rednitrogen.com.rednotes.R;
 
 public class WidgetService extends RemoteViewsService {
