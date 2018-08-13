@@ -35,7 +35,7 @@
             android:id="@+id/buttongo"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_margin="30dp"
+            android:layout_margin="60dp"
             android:elevation="8dp"
             android:background="@drawable/buttonstyle"
             android:layout_gravity="bottom|center"

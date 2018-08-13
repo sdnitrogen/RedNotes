@@ -26,6 +26,7 @@ android note-taking app that does more than taking notes.
 - [x] Implement copy note
 - [x] Implement search functionality
 - [ ] Navigation drawer from left
+  - [ ] Notes, To-do, Reminder / Trash / Settings, Help & Support
 - [ ] Implement To-do Activity
 - [ ] Rich text format
 - [x] Design App Logo
