@@ -22,9 +22,15 @@
         <activity
             android:name=".Notes"
             android:label="@string/activity_title_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Tasks"
+            android:label="Tasks"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-        <receiver android:name=".widget.RedNotesWidget">
+        <receiver
+            android:name=".widget.RedNotesWidget"
+            android:label="Nitrogen Notes">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -38,7 +44,8 @@
             android:name=".widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".widget.WidgetConfig"
+        <activity
+            android:name=".widget.WidgetConfig"
             android:label="Choose Note">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
