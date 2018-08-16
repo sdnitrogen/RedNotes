@@ -138,7 +138,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(Task.COLUMN_TASK, task.getTask());
-        values.put(Task.COLUMN_TIME, task.getTask());
+        values.put(Task.COLUMN_TIME, task.getTime());
 
         // updating row
         return db.update(Task.TABLE_NAME, values, Task.COLUMN_ID + " = ?",

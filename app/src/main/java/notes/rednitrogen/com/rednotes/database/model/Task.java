@@ -20,7 +20,7 @@ public class Task{
                         + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                         + COLUMN_TASK + " TEXT,"
                         + COLUMN_CHECKED + " TEXT,"
-                        + COLUMN_TIME + " DATETIME DEFAULT"
+                        + COLUMN_TIME + " DATETIME"
                         + ")";
 
         public Task() {
