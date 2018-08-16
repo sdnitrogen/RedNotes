@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import notes.rednitrogen.com.rednotes.database.model.Task;
@@ -50,6 +54,15 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         // `id` and `timestamp` will be inserted automatically.
         // no need to add them
+
+        try {
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = fmt.parse(time+" 00:00:00");
+            SimpleDateFormat fmtout = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            time = fmtout.format(date);
+        } catch (ParseException e) {
+
+        }
 
         values.put(Task.COLUMN_TASK, task);
         values.put(Task.COLUMN_CHECKED, checked);
@@ -95,7 +108,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + Task.TABLE_NAME + " ORDER BY " +
-                Task.COLUMN_TIME + " DESC";
+                Task.COLUMN_TIME + " ASC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -136,9 +149,19 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     public int updateTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        String time = task.getTime();
+        try {
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = fmt.parse(time+" 00:00:00");
+            SimpleDateFormat fmtout = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            time = fmtout.format(date);
+        } catch (ParseException e) {
+
+        }
+
         ContentValues values = new ContentValues();
         values.put(Task.COLUMN_TASK, task.getTask());
-        values.put(Task.COLUMN_TIME, task.getTime());
+        values.put(Task.COLUMN_TIME, time);
 
         // updating row
         return db.update(Task.TABLE_NAME, values, Task.COLUMN_ID + " = ?",

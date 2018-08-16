@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -22,8 +23,11 @@ import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import notes.rednitrogen.com.rednotes.database.TaskDBHelper;
@@ -83,7 +87,12 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 taskRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-                showTaskDialog(true, tasksList.get(position), position);
+                view.findViewById(R.id.centerContent).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTaskDialog(true, tasksList.get(position), position);
+                    }
+                });
             }
 
             @Override
@@ -128,8 +137,8 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 @Override
                 public void onDismissed(Snackbar snackbar, int event) {
                     //see Snackbar.Callback docs for event details
-                    if (event == DISMISS_EVENT_SWIPE || event == DISMISS_EVENT_TIMEOUT){
-                        deleteTask(position);
+                    if (event == DISMISS_EVENT_SWIPE || event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE){
+                        deleteTask(deletedItem);
                     }
                 }
 
@@ -177,18 +186,14 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         toggleEmptyTasks();
     }
 
-    private void deleteTask(int position) {
+    private void deleteTask(Task task) {
         // deleting the note from db
-        mydb.deleteTask(tasksList.get(position));
-
-        // removing the note from the list
-        tasksList.remove(position);
-        tAdapter.notifyItemRemoved(position);
+        mydb.deleteTask(task);
 
         toggleEmptyTasks();
     }
 
-    private void showTaskDialog(final boolean shouldUpdate, final Task task, final int position) {
+    public void showTaskDialog(final boolean shouldUpdate, final Task task, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.task_dialog, null);
 
@@ -222,6 +227,16 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         if (shouldUpdate && task != null) {
             inputTask.setText(task.getTask());
             inputTask.setSelection(inputTask.getText().length());
+            String time = task.getTime();
+            try {
+                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = fmt.parse(time);
+                SimpleDateFormat fmtout = new SimpleDateFormat("dd/MM/yyyy");
+                time = fmtout.format(date);
+            } catch (ParseException e) {
+
+            }
+            inputTime.setText(time);
         }
         alertDialogBuilderUserInput
                 .setCancelable(false)
@@ -267,5 +282,13 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
     }
 }
