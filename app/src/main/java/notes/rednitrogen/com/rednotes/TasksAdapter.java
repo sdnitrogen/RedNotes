@@ -1,12 +1,15 @@
 package notes.rednitrogen.com.rednotes;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +33,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
         public TextView time;
         public CheckBox checkBox;
         public RelativeLayout viewBackgroundTask, viewForegroundTask;
+        public LinearLayout center;
 
         public MyViewHolder(View view) {
             super(view);
@@ -38,6 +42,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
             checkBox = view.findViewById(R.id.task_check);
             viewBackgroundTask = view.findViewById(R.id.taskview_background);
             viewForegroundTask = view.findViewById(R.id.taskview_foreground);
+            center = view.findViewById(R.id.centerContent);
         }
     }
 
@@ -56,12 +61,31 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Task task = tasksList.get(position);
 
         holder.task.setText(task.getTask());
         holder.time.setText(formatDate(task.getTime()));
         holder.checkBox.setChecked(Boolean.valueOf(task.getChecked()));
+
+        holder.center.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Tasks)context).showTaskDialog(true, tasksList.get(position), position);
+            }
+        });
+
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(holder.checkBox.isChecked()){
+                    holder.task.setPaintFlags(holder.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+                else{
+                    holder.task.setPaintFlags(0);
+                }
+            }
+        });
     }
 
     @Override

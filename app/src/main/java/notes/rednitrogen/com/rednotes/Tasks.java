@@ -33,7 +33,6 @@ import java.util.List;
 import notes.rednitrogen.com.rednotes.database.TaskDBHelper;
 import notes.rednitrogen.com.rednotes.database.model.Task;
 import notes.rednitrogen.com.rednotes.utils.MyDividerItemDecoration;
-import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
 import notes.rednitrogen.com.rednotes.utils.TaskRecyclerItemTouchHelper;
 
 public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
@@ -82,24 +81,6 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(taskRecyclerView);
 
         toggleEmptyTasks();
-
-        taskRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
-                taskRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-                view.findViewById(R.id.centerContent).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showTaskDialog(true, tasksList.get(position), position);
-                    }
-                });
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
     }
 
     private void toggleEmptyTasks() {
@@ -137,7 +118,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 @Override
                 public void onDismissed(Snackbar snackbar, int event) {
                     //see Snackbar.Callback docs for event details
-                    if (event == DISMISS_EVENT_SWIPE || event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE){
+                    if (event == DISMISS_EVENT_SWIPE || event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE || event == DISMISS_EVENT_MANUAL){
                         deleteTask(deletedItem);
                     }
                 }
@@ -161,7 +142,9 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
 
         if (t != null) {
             // adding new note to array list at 0 position
-            tasksList.add(0, t);
+            //tasksList.add(0, t);
+            tasksList.removeAll(tasksList);
+            tasksList.addAll(mydb.getAllTasks());
 
             // refreshing the list
             tAdapter.notifyDataSetChanged();
@@ -180,8 +163,10 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         mydb.updateTask(t);
 
         // refreshing the list
-        tasksList.set(position, t);
-        tAdapter.notifyItemChanged(position);
+        //tasksList.set(position, t);
+        tasksList.removeAll(tasksList);
+        tasksList.addAll(mydb.getAllTasks());
+        tAdapter.notifyDataSetChanged();
 
         toggleEmptyTasks();
     }
