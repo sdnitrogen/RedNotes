@@ -28,9 +28,8 @@ android note-taking app that does more than taking notes.
 - [ ] Navigation drawer from left
   - [ ] Notes, To-do/ Trash / Settings, Help & Support
 - [ ] Implement To-do Task Activity
-  - [ ] Strikethrough checked
+  - [x] Strikethrough checked
   - [x] Swipe to delete
-  - [ ] add/pull to refresh for correct positioning
   - [ ] Daily reminder grouped notification , action Done
   - [ ] Widget (today, tomorrow, upcoming - unchecked)
 - [ ] Rich text format

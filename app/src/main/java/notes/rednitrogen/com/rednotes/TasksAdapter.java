@@ -62,9 +62,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Task task = tasksList.get(position);
+        final Task task = tasksList.get(position);
 
         holder.task.setText(task.getTask());
+        if(Boolean.valueOf(task.getChecked()) == true){
+            holder.task.setPaintFlags(holder.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
         holder.time.setText(formatDate(task.getTime()));
         holder.checkBox.setChecked(Boolean.valueOf(task.getChecked()));
 
@@ -80,10 +83,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(holder.checkBox.isChecked()){
                     holder.task.setPaintFlags(holder.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    task.setChecked("true");
                 }
                 else{
                     holder.task.setPaintFlags(0);
+                    task.setChecked("false");
                 }
+                Tasks.mydb.updateTaskCheck(task);
             }
         });
     }

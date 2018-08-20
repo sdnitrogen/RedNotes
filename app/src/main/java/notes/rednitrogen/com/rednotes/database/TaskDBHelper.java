@@ -168,6 +168,14 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(task.getId())});
     }
 
+    public int updateTaskCheck(Task task){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Task.COLUMN_CHECKED, task.getChecked());
+        return db.update(Task.TABLE_NAME, values, Task.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(task.getId())});
+    }
+
     // delete note
     public void deleteTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();

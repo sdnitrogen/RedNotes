@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private RecyclerView taskRecyclerView;
     private TextView noTasksView;
 
-    private TaskDBHelper mydb;
+    public static TaskDBHelper mydb;
     private DatePickerDialog dpd;
 
     private AlertDialog alertDialog = null;
@@ -141,15 +142,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         Task t = mydb.getTask(id);
 
         if (t != null) {
-            // adding new note to array list at 0 position
-            //tasksList.add(0, t);
-            tasksList.removeAll(tasksList);
-            tasksList.addAll(mydb.getAllTasks());
-
-            // refreshing the list
-            tAdapter.notifyDataSetChanged();
-
-            toggleEmptyTasks();
+            refresh();
         }
     }
 
@@ -162,8 +155,10 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         // updating note in db
         mydb.updateTask(t);
 
-        // refreshing the list
-        //tasksList.set(position, t);
+        refresh();
+    }
+
+    public void refresh(){
         tasksList.removeAll(tasksList);
         tasksList.addAll(mydb.getAllTasks());
         tAdapter.notifyDataSetChanged();
