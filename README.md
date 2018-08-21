@@ -30,7 +30,7 @@ android note-taking app that does more than taking notes.
 - [ ] Implement To-do Task Activity
   - [x] Strikethrough checked
   - [x] Swipe to delete
-  - [ ] daily reminder notifications
+  - [ ] remind me checkbox to create reminder notification
   - [ ] Widget (today, tomorrow, upcoming - unchecked)
 - [ ] Rich text format
 - [x] Design App Logo

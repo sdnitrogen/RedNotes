@@ -133,6 +133,36 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         return tasks;
     }
 
+    public List<Task> getUncheckedTasks() {
+        List<Task> tasks = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + Task.TABLE_NAME + " WHERE " + Task.COLUMN_CHECKED + "='false'" + " ORDER BY " +
+                Task.COLUMN_TIME + " ASC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Task task = new Task();
+                task.setId(cursor.getInt(cursor.getColumnIndex(Task.COLUMN_ID)));
+                task.setTask(cursor.getString(cursor.getColumnIndex(Task.COLUMN_TASK)));
+                task.setChecked(cursor.getString(cursor.getColumnIndex(Task.COLUMN_CHECKED)));
+                task.setTime(cursor.getString(cursor.getColumnIndex(Task.COLUMN_TIME)));
+
+                tasks.add(task);
+            } while (cursor.moveToNext());
+        }
+
+        // close db connection
+        db.close();
+
+        // return notes list
+        return tasks;
+    }
+
     public int getTasksCount() {
         String countQuery = "SELECT  * FROM " + Task.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();

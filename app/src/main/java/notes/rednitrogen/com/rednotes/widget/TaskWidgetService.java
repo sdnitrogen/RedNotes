@@ -7,22 +7,25 @@ import android.text.Html;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import java.util.ArrayList;
+
 import notes.rednitrogen.com.rednotes.R;
 
 public class TaskWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return null;
+        return new TaskWidgetItemFactory(getApplicationContext(), intent);
     }
 
     class TaskWidgetItemFactory implements RemoteViewsFactory {
         private Context context;
         private int appWidgetId;
-        private String[] taskData = {};
+        private ArrayList<String> tasksData;
 
         TaskWidgetItemFactory(Context context , Intent intent){
             this.context = context;
             this.appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            this.tasksData = intent.getStringArrayListExtra("tasksData");
         }
 
         @Override
@@ -42,15 +45,15 @@ public class TaskWidgetService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            return taskData.length;
+            return tasksData.size();
         }
 
         @Override
         public RemoteViews getViewAt(int position) {
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.red_tasks_widget);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.content_tasks_widget_item);
             views.setTextViewText(R.id.task_widget_dot, Html.fromHtml("&#8226;"));
-            views.setTextViewText(R.id.task_widget_name, taskData[position]);
-            return null;
+            views.setTextViewText(R.id.task_widget_name, tasksData.get(position));
+            return views;
         }
 
         @Override
@@ -65,12 +68,12 @@ public class TaskWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override
         public boolean hasStableIds() {
-            return false;
+            return true;
         }
     }
 }
