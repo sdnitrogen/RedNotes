@@ -32,7 +32,7 @@ android note-taking app that does more than taking notes.
   - [x] Swipe to delete
   - [ ] remind me checkbox to create reminder notification
   - [x] Widget (unchecked)
-  - [ ] fix widget refresh
+  - [x] fix widget refresh
 - [ ] Rich text format
 - [x] Design App Logo
 - [ ] Implement Trash

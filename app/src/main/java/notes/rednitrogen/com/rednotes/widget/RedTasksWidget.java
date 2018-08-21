@@ -3,6 +3,7 @@ package notes.rednitrogen.com.rednotes.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +19,8 @@ import notes.rednitrogen.com.rednotes.database.model.Task;
 
 
 public class RedTasksWidget extends AppWidgetProvider {
+
+    public static String UPDATE_LIST = "UPDATE_LIST";
 
     public static final String CLICK_ACTION = "click";
 
@@ -37,8 +40,7 @@ public class RedTasksWidget extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             Intent intentUpdate = new Intent(context, RedTasksWidget.class);
-            intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+            intentUpdate.setAction(UPDATE_LIST);
             PendingIntent pInt = PendingIntent.getBroadcast(context, 0, intentUpdate, 0);
 
 
@@ -77,8 +79,17 @@ public class RedTasksWidget extends AppWidgetProvider {
             Intent mainintent = new Intent(context, Tasks.class);
             context.startActivity(mainintent);
         }
+        else if(intent.getAction().equalsIgnoreCase(UPDATE_LIST)){
+            updateWidget(context);
+        }
 
         super.onReceive(context, intent);
+    }
+
+    private void updateWidget(Context context) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, RedTasksWidget.class));
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.task_widget_listview);
     }
 }
 

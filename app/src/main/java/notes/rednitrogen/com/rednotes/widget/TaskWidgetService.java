@@ -8,8 +8,11 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import notes.rednitrogen.com.rednotes.R;
+import notes.rednitrogen.com.rednotes.database.TaskDBHelper;
+import notes.rednitrogen.com.rednotes.database.model.Task;
 
 public class TaskWidgetService extends RemoteViewsService {
     @Override
@@ -21,6 +24,8 @@ public class TaskWidgetService extends RemoteViewsService {
         private Context context;
         private int appWidgetId;
         private ArrayList<String> tasksData;
+        private List<Task> tasksList = new ArrayList<>();
+        private TaskDBHelper mydb;
 
         TaskWidgetItemFactory(Context context , Intent intent){
             this.context = context;
@@ -35,7 +40,12 @@ public class TaskWidgetService extends RemoteViewsService {
 
         @Override
         public void onDataSetChanged() {
-
+            tasksData.removeAll(tasksData);
+            mydb = new TaskDBHelper(context);
+            tasksList = mydb.getUncheckedTasks();
+            for(int i=0; i<tasksList.size(); i++){
+                tasksData.add(tasksList.get(i).getTask());
+            }
         }
 
         @Override
