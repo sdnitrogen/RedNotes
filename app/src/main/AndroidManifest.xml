@@ -16,7 +16,9 @@
         <activity
             android:name=".Notes"
             android:label="@string/activity_title_home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".Tasks"
             android:label="Tasks"

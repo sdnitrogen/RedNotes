@@ -12,11 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import notes.rednitrogen.com.rednotes.R;
+import notes.rednitrogen.com.rednotes.Tasks;
 import notes.rednitrogen.com.rednotes.database.TaskDBHelper;
 import notes.rednitrogen.com.rednotes.database.model.Task;
 
 
 public class RedTasksWidget extends AppWidgetProvider {
+
+    public static final String CLICK_ACTION = "click";
 
     private List<Task> tasksList = new ArrayList<>();
     private TaskDBHelper mydb;
@@ -44,16 +47,18 @@ public class RedTasksWidget extends AppWidgetProvider {
             serviceIntent.putStringArrayListExtra("tasksData", tasksData);
             serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
+            Intent clickintent = new Intent(context, RedTasksWidget.class);
+            clickintent.setAction(CLICK_ACTION);
+            PendingIntent clickPendingIntent = PendingIntent.getBroadcast(context,0, clickintent,0);
+
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.red_tasks_widget);
             views.setOnClickPendingIntent(R.id.taskwidget_refresh, pInt);
+            views.setPendingIntentTemplate(R.id.task_widget_listview,clickPendingIntent);
             views.setRemoteAdapter(R.id.task_widget_listview, serviceIntent);
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
-        mydb.close();
-        tasksList.removeAll(tasksList);
-        tasksData.clear();
     }
 
     @Override
@@ -64,6 +69,16 @@ public class RedTasksWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if(CLICK_ACTION.equals(intent.getAction())){
+            Intent mainintent = new Intent(context, Tasks.class);
+            context.startActivity(mainintent);
+        }
+
+        super.onReceive(context, intent);
     }
 }
 

@@ -53,6 +53,10 @@ public class TaskWidgetService extends RemoteViewsService {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.content_tasks_widget_item);
             views.setTextViewText(R.id.task_widget_dot, Html.fromHtml("&#8226;"));
             views.setTextViewText(R.id.task_widget_name, tasksData.get(position));
+
+            Intent fillIntent = new Intent();
+            views.setOnClickFillInIntent(R.id.task_widget_content, fillIntent);
+
             return views;
         }
 
