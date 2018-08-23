@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private List<Task> tasksList = new ArrayList<>();
     private CoordinatorLayout taskCoordinatorLayout;
     private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     private RecyclerView taskRecyclerView;
     private TextView noTasksView;
 
@@ -65,6 +68,11 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         mDrawerLayout = findViewById(R.id.tasks_drawer);
         taskRecyclerView = findViewById(R.id.recycler_view_tasks);
         noTasksView = findViewById(R.id.empty_tasks_view);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, R.string.nav_open, R.string.nav_close);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mydb = new TaskDBHelper(this);
         tasksList.addAll(mydb.getAllTasks());
@@ -284,21 +292,15 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
         else {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-                return;
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
-                }
-            }, 2000);
+            super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

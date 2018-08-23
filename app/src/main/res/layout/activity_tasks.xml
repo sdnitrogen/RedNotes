@@ -39,4 +39,14 @@
             android:src="@drawable/ic_add_white_24dp" />
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.NavigationView
+        app:headerLayout="@layout/nav_header"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#ffffff"
+        app:itemIconTint="#6c6c6c"
+        app:itemTextColor="#6c6c6c"
+        app:menu="@menu/drawermenu" />
 </android.support.v4.widget.DrawerLayout>
