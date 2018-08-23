@@ -25,8 +25,8 @@ android note-taking app that does more than taking notes.
   - [x] clickable listview
 - [x] Implement copy note
 - [x] Implement search functionality
-- [ ] Navigation drawer from left
-  - [ ] Notes, To-do/ Trash / Settings, Help & Support
+- [x] Navigation drawer from left
+  - [x] Notes, To-do/ Trash / Settings, Help & Support
 - [ ] Implement To-do Task Activity
   - [x] Strikethrough checked
   - [x] Swipe to delete
