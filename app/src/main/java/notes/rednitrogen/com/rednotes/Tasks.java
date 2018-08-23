@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private TasksAdapter tAdapter;
     private List<Task> tasksList = new ArrayList<>();
     private CoordinatorLayout taskCoordinatorLayout;
+    private DrawerLayout mDrawerLayout;
     private RecyclerView taskRecyclerView;
     private TextView noTasksView;
 
@@ -59,6 +62,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         setSupportActionBar(toolbar);
 
         taskCoordinatorLayout = findViewById(R.id.coordinator_layout_tasks);
+        mDrawerLayout = findViewById(R.id.tasks_drawer);
         taskRecyclerView = findViewById(R.id.recycler_view_tasks);
         noTasksView = findViewById(R.id.empty_tasks_view);
 
@@ -276,20 +280,25 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
+        if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
+        else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
             }
-        }, 2000);
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+        }
     }
 }

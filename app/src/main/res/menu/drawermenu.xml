@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/ic_note_black_24dp"
+            android:title="@string/nav_notes" />
+        <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="@string/nav_tasks" />
+        <item
+            android:id="@+id/nav_trash"
+            android:icon="@drawable/ic_delete_white_24dp"
+            android:title="@string/nav_trash" />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/nav_settings" />
+            <item
+                android:id="@+id/nav_help_and_support"
+                android:icon="@drawable/ic_help_black_24dp"
+                android:title="@string/nav_help_and_support" />
+        </menu>
+    </item>
+
+</menu>

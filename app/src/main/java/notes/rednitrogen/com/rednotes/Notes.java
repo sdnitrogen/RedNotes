@@ -18,6 +18,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -51,6 +53,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     private NotesAdapter mAdapter;
     private List<Note> notesList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
+    private DrawerLayout mDrawerLayout;
     private RecyclerView recyclerView;
     private TextView noNotesView;
 
@@ -72,6 +75,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         initChannels(this);
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
+        mDrawerLayout = findViewById(R.id.notes_drawer);
         recyclerView = findViewById(R.id.recycler_view);
         noNotesView = findViewById(R.id.empty_notes_view);
 
@@ -446,7 +450,11 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     public void onBackPressed() {
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
-        } else {
+        }
+        else if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
                 return;
