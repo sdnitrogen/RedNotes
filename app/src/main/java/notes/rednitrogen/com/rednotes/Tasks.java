@@ -2,6 +2,7 @@ package notes.rednitrogen.com.rednotes;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -47,6 +48,8 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private DatePickerDialog dpd;
 
     private AlertDialog alertDialog = null;
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -269,5 +272,24 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         if (alertDialog != null) {
             alertDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
