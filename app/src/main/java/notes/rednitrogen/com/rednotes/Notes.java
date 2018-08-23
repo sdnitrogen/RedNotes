@@ -13,8 +13,10 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -85,6 +87,8 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpDrawerContent((NavigationView) findViewById(R.id.nv));
+        ((NavigationView) findViewById(R.id.nv)).setCheckedItem(R.id.nav_notes);
 
         db = new DatabaseHelper(this);
 
@@ -486,5 +490,37 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void selectItemDrawer(MenuItem menuItem){
+        Intent intent;
+        switch(menuItem.getItemId()){
+            case R.id.nav_notes:
+                break;
+            case R.id.nav_tasks:
+                intent = new Intent(this, Tasks.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
+                break;
+            case R.id.nav_trash:
+                break;
+            case R.id.nav_settings:
+                break;
+            case R.id.nav_help_and_support:
+                break;
+            default:
+                break;
+        }
+        mDrawerLayout.closeDrawers();
+    }
+
+    private void setUpDrawerContent(NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectItemDrawer(item);
+                return true;
+            }
+        });
     }
 }

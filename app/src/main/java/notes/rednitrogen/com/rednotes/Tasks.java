@@ -1,10 +1,12 @@
 package notes.rednitrogen.com.rednotes;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -55,8 +57,6 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
 
     private AlertDialog alertDialog = null;
 
-    boolean doubleBackToExitPressedOnce = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +73,8 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpDrawerContent((NavigationView) findViewById(R.id.nv));
+        ((NavigationView) findViewById(R.id.nv)).setCheckedItem(R.id.nav_tasks);
 
         mydb = new TaskDBHelper(this);
         tasksList.addAll(mydb.getAllTasks());
@@ -293,6 +295,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         }
         else {
             super.onBackPressed();
+            overridePendingTransition(R.anim.slidein_left, R.anim.slideout_left);
         }
     }
 
@@ -302,5 +305,38 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void selectItemDrawer(MenuItem menuItem){
+        Intent intent;
+        switch(menuItem.getItemId()){
+            case R.id.nav_notes:
+                intent = new Intent(this, Notes.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
+                break;
+            case R.id.nav_tasks:
+                break;
+            case R.id.nav_trash:
+                break;
+            case R.id.nav_settings:
+                break;
+            case R.id.nav_help_and_support:
+                break;
+            default:
+                break;
+        }
+        mDrawerLayout.closeDrawers();
+    }
+
+    private void setUpDrawerContent(NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectItemDrawer(item);
+                return true;
+            }
+        });
     }
 }
