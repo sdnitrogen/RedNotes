@@ -15,8 +15,7 @@
     </group>
 
     <group
-        android:id="@+id/nav_menu_mid"
-        android:checkableBehavior="single">
+        android:id="@+id/nav_menu_mid">
         <item
             android:id="@+id/nav_trash"
             android:icon="@drawable/ic_delete_white_24dp"

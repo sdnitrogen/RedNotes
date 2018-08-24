@@ -291,7 +291,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
      * Delete - 0
      */
     private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Share", "Copy Note", "Add to Notification", "Delete"};
+        CharSequence colors[] = new CharSequence[]{"Share", "Copy Note", "Add to Notification", "Delete Forever"};
 
         final Note note = notesList.get(position);
 
@@ -503,10 +503,19 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_trash:
+                intent = new Intent(this, Trash.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_settings:
+                intent = new Intent(this, Settings.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_help_and_support:
+                intent = new Intent(this, HelpAndSupport.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             default:
                 break;
@@ -518,6 +527,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setCheckable(false);
                 selectItemDrawer(item);
                 return true;
             }

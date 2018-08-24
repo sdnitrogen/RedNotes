@@ -319,10 +319,19 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
             case R.id.nav_tasks:
                 break;
             case R.id.nav_trash:
+                intent = new Intent(this, Trash.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_settings:
+                intent = new Intent(this, Settings.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_help_and_support:
+                intent = new Intent(this, HelpAndSupport.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             default:
                 break;

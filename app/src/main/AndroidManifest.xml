@@ -22,15 +22,11 @@
         <activity
             android:name=".Notes"
             android:label="@string/activity_title_home"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Tasks"
             android:label="Tasks"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
             android:name=".widget.RedNotesWidget"
@@ -59,7 +55,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".widget.RedTasksWidget"
+        <receiver
+            android:name=".widget.RedTasksWidget"
             android:label="Nitrogen Tasks">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -69,6 +66,18 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/red_tasks_widget_info" />
         </receiver>
+
+        <activity
+            android:name=".Trash"
+            android:label="Trash"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Settings"
+            android:label="Settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".HelpAndSupport"
+            android:label="Help &amp; Support"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
