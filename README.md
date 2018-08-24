@@ -41,8 +41,10 @@ android note-taking app that does more than taking notes.
   - [ ] Night Mode settings
   - [ ] Auto-delete trash time settings
   - [ ] Add new notes to bottom OFF
+  - [ ] Fingerprint authentication ON/OFF
 - [ ] Help and Support
 - [ ] bottom sheet instead of actiondialog
 - [ ] Night Mode
 - [ ] Ads
+- [ ] Fingerprint authentication
 
