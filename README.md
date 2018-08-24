@@ -27,16 +27,20 @@ android note-taking app that does more than taking notes.
 - [x] Implement search functionality
 - [x] Navigation drawer from left
   - [x] Notes, To-do/ Trash / Settings, Help & Support
-- [ ] Implement To-do Task Activity
+- [x] Implement To-do Task Activity
   - [x] Strikethrough checked
   - [x] Swipe to delete
-  - [ ] remind me checkbox to create reminder notification
   - [x] Widget (unchecked)
   - [x] fix widget refresh
-- [ ] Rich text format
 - [x] Design App Logo
 - [ ] Implement Trash
 - [ ] Settings
+  - [ ] Reminder ON and time settings
+  - [ ] Set Tasks reminder if settings ON
+  - [ ] OFF asks for clear existing reminder
+  - [ ] Night Mode settings
+  - [ ] Auto-delete trash time settings
+  - [ ] Add new notes to bottom OFF
 - [ ] Help and Support
 - [ ] bottom sheet instead of actiondialog
 - [ ] Night Mode
