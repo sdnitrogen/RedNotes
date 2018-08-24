@@ -296,7 +296,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         final Note note = notesList.get(position);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose option");
+        builder.setTitle("Choose Action");
         builder.setItems(colors, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
