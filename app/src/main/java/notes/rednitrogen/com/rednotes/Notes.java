@@ -127,12 +127,12 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-                showNoteDialog(true, notesList.get(position), position);
+                showActionsDialog(position);
             }
 
             @Override
             public void onLongClick(View view, int position) {
-                showActionsDialog(position);
+
             }
         }));
 
@@ -292,7 +292,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
      * Delete - 0
      */
     private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Share", "Copy Note", "Add to Notification", "Delete Forever"};
+        CharSequence colors[] = new CharSequence[]{"Edit", "Share", "Copy Note", "Add to Notification", "Delete Forever"};
 
         final Note note = notesList.get(position);
 
@@ -301,21 +301,24 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         builder.setItems(colors, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
+                if (which == 0){
+                    showNoteDialog(true, note, position);
+                }
+                else if (which == 1) {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.putExtra(Intent.EXTRA_TEXT,note.getNote());
                     shareIntent.setType("text/plain");
                     Intent.createChooser(shareIntent,"Share via");
                     startActivity(shareIntent);
                 }
-                else if(which == 1){
+                else if(which == 2){
                     String noteText = note.getNote();
                     ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("note", noteText);
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(Notes.this, "Note copied to clipboard!", Toast.LENGTH_SHORT).show();
                 }
-                else if(which == 2){
+                else if(which == 3){
                     String noteTitle = note.getTitle();
                     String noteText = note.getNote();
                     createNotification(noteTitle, noteText, position);
