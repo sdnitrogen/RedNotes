@@ -167,6 +167,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    public int getDeletedNotesCount() {
+        String countQuery = "SELECT  * FROM " + Note.TABLE_NAME + " WHERE " + Note.COLUMN_DELETED + "='true'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+
+
+        // return count
+        return count;
+    }
+
     public int updateNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
 

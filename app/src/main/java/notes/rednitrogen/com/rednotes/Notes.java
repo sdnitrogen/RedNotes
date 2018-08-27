@@ -226,6 +226,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
         }
+        toggleEmptyNotes();
     }
 
     /**
@@ -508,7 +509,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 break;
             case R.id.nav_trash:
                 intent = new Intent(this, Trash.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_settings:
@@ -536,5 +537,13 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        notesList.removeAll(notesList);
+        notesList.addAll(db.getGoodNotes());
+        mAdapter.notifyDataSetChanged();
+        toggleEmptyNotes();
     }
 }

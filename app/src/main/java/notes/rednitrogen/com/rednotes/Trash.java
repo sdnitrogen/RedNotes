@@ -1,10 +1,37 @@
 package notes.rednitrogen.com.rednotes;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import notes.rednitrogen.com.rednotes.database.DatabaseHelper;
+import notes.rednitrogen.com.rednotes.database.model.Note;
+import notes.rednitrogen.com.rednotes.utils.MyDividerItemDecoration;
+import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
 
 public class Trash extends AppCompatActivity {
+
+    private TrashAdapter mAdapter;
+    private List<Note> deletedNotesList = new ArrayList<>();
+    private CoordinatorLayout coordinatorLayout;
+    private RecyclerView recyclerView;
+    private TextView noNotesView;
+
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +40,102 @@ public class Trash extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_trash);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        coordinatorLayout = findViewById(R.id.coordinator_layout_trash);
+        recyclerView = findViewById(R.id.trash_recycler_view);
+        noNotesView = findViewById(R.id.empty_trash_view);
+
+        db = new DatabaseHelper(this);
+
+        deletedNotesList.addAll(db.getDeletedNotes());
+
+        FloatingActionButton fab = findViewById(R.id.fab_trash);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //confirmation
+                new AlertDialog.Builder(Trash.this)
+                        .setTitle("Do you really want to empty Trash?")
+                        .setMessage("This will permanently delete all notes in Trash and this action is irreversible")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                int count = recyclerView.getChildCount();
+                                for (int i = 0; i < count; i++){
+                                    permaDeleteNote(0);
+                                }
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
+            }
+        });
+
+        mAdapter = new TrashAdapter(this, deletedNotesList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+        recyclerView.setAdapter(mAdapter);
+
+        toggleEmptyTrash();
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
+                recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                // delete or restore function
+                showActionDialog(position);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+    }
+
+    private void showActionDialog(final int position) {
+        CharSequence colors[] = new CharSequence[]{"Restore Note", "Delete Note forever"};
+
+        final Note note = deletedNotesList.get(position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Action");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    db.setNoteFree(deletedNotesList.get(position));
+                    deletedNotesList.remove(position);
+                    mAdapter.notifyItemRemoved(position);
+                    toggleEmptyTrash();
+                }
+                else {
+                    permaDeleteNote(position);
+                }
+            }
+        });
+        builder.show();
+    }
+
+    private void permaDeleteNote(int position) {
+        // deleting the note from db
+        db.deleteNote(deletedNotesList.get(position));
+
+        // removing the note from the list
+        deletedNotesList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+
+        toggleEmptyTrash();
+    }
+
+    private void toggleEmptyTrash() {
+        // you can check notesList.size() > 0
+
+        if (db.getDeletedNotesCount() > 0) {
+            noNotesView.setVisibility(View.GONE);
+        } else {
+            noNotesView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
