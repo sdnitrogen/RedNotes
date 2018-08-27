@@ -7,11 +7,13 @@ public class Note {
     public static final String COLUMN_NOTE_TITLE = "title";
     public static final String COLUMN_NOTE = "note";
     public static final String COLUMN_TIMESTAMP = "timestamp";
+    public static final String COLUMN_DELETED = "deleted";
 
     private int id;
     private String title;
     private String note;
     private String timestamp;
+    private String deleted;
 
 
     // Create table SQL query
@@ -20,17 +22,19 @@ public class Note {
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_NOTE_TITLE + " TEXT,"
                     + COLUMN_NOTE + " TEXT,"
+                    + COLUMN_DELETED + " TEXT,"
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
     public Note() {
     }
 
-    public Note(int id, String title, String note, String timestamp) {
+    public Note(int id, String title, String note, String timestamp, String deleted) {
         this.id = id;
         this.title = title;
         this.note = note;
         this.timestamp = timestamp;
+        this.deleted = deleted;
     }
 
     public int getId() {
@@ -63,5 +67,13 @@ public class Note {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
+
+    public String getDeleted() {
+        return deleted;
     }
 }

@@ -92,7 +92,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
 
         db = new DatabaseHelper(this);
 
-        notesList.addAll(db.getAllNotes());
+        notesList.addAll(db.getGoodNotes());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -210,6 +210,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
 
             // remove the item from recycler view
             mAdapter.removeItem(viewHolder.getAdapterPosition());
+            db.setNoteDel(deletedItem);
 
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar
@@ -217,7 +218,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             snackbar.setAction("UNDO", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    db.setNoteFree(deletedItem);
                     // undo is selected, restore the deleted item
                     mAdapter.restoreItem(deletedItem, deletedIndex);
                 }

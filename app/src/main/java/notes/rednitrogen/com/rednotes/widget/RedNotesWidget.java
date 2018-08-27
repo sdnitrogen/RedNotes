@@ -37,7 +37,7 @@ public class RedNotesWidget extends AppWidgetProvider {
         int position;
 
         db = new DatabaseHelper(context);
-        notesList.addAll(db.getAllNotes());
+        notesList.addAll(db.getGoodNotes());
 
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {

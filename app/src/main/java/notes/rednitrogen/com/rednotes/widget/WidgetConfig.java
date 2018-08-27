@@ -70,7 +70,7 @@ public class WidgetConfig extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
-        notesList.addAll(db.getAllNotes());
+        notesList.addAll(db.getGoodNotes());
 
         FloatingActionButton fab = findViewById(R.id.widget_config_fab);
         fab.setOnClickListener(new View.OnClickListener() {
