@@ -48,7 +48,7 @@ android note-taking app that does more than taking notes.
   - [ ] FAQ
   - [ ] Privacy Policy
   - [ ] Terms & Conditions
-  - [ ] Contact fab
+  - [x] Contact fab
 - [ ] bottom sheet instead of actiondialog
 - [ ] Night Mode
 - [ ] Complete Settings functionality
