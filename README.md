@@ -33,18 +33,25 @@ android note-taking app that does more than taking notes.
   - [x] Widget (unchecked)
   - [x] fix widget refresh
 - [x] Design App Logo
-- [ ] Implement Trash
-- [ ] Settings
-  - [ ] Reminder ON and time settings
-  - [ ] Set Tasks reminder if settings ON
-  - [ ] OFF asks for clear existing reminder
-  - [ ] Night Mode settings
-  - [ ] Auto-delete trash time settings
-  - [ ] Add new notes to bottom OFF
-  - [ ] Fingerprint authentication ON/OFF
+- [x] Implement Trash
+- [x] Settings
+  - [x] Reminder ON and time settings
+  - [x] Set Tasks reminder if settings ON
+  - [x] OFF asks for clear existing reminder
+  - [x] Night Mode settings
+  - [x] Auto-delete trash time settings
+  - [x] Add new notes to bottom OFF
+  - [x] Fingerprint authentication ON/OFF
 - [ ] Help and Support
+  - [ ] About
+  - [ ] Version
+  - [ ] FAQ
+  - [ ] Privacy Policy
+  - [ ] Terms & Conditions
+  - [ ] Contact fab
 - [ ] bottom sheet instead of actiondialog
 - [ ] Night Mode
+- [ ] Complete Settings functionality
 - [ ] Ads
 - [ ] Fingerprint authentication
 

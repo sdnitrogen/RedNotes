@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_nightmode"
+            android:summary="@string/summary_nightmode"
+            android:title="@string/title_nightmode" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_fingerauth"
+            android:summary="@string/summary_fingerauth"
+            android:title="@string/title_fingerauth" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Notes">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_bottomnote"
+            android:title="@string/title_bottomnote" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Tasks">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_reminder"
+            android:summary="@string/summary_reminder"
+            android:title="@string/title_reminder" />
+
+        <ListPreference
+            android:dependency="@string/key_reminder"
+            android:defaultValue="4"
+            android:dialogTitle="@string/title_remindertime"
+            android:entries="@array/pref_reminder_time_entries"
+            android:entryValues="@array/pref_reminder_time_values"
+            android:key="@string/key_remindertime"
+            android:summary="@string/summary_remindertime"
+            android:title="@string/title_remindertime" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Trash">
+        <ListPreference
+            android:defaultValue="1"
+            android:dialogTitle="@string/title_trashtime"
+            android:entries="@array/pref_trash_time_entries"
+            android:entryValues="@array/pref_trash_time_values"
+            android:key="@string/key_trashtime"
+            android:summary="@string/summary_trashtime"
+            android:title="@string/title_trashtime" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

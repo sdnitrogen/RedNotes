@@ -21,4 +21,28 @@
 
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+
+    <!--Strings for settings screen-->
+    <string name="title_nightmode">Night Mode</string>
+    <string name="summary_nightmode">Toggle Night mode ON/OFF</string>
+    <string name="key_nightmode">key_nightmode</string>
+
+    <string name="title_fingerauth">Fingerprint Authentication</string>
+    <string name="summary_fingerauth">Use your fingerprint to unlock your notes</string>
+    <string name="key_fingerauth">key_fingerauth</string>
+
+    <string name="key_bottomnote">key_bottomnote</string>
+    <string name="title_bottomnote">Add new Notes to bottom</string>
+
+    <string name="title_trashtime">Auto-Delete Trash</string>
+    <string name="summary_trashtime">Specify time before deleting from Trash</string>
+    <string name="key_trashtime">key_trashtime</string>
+
+    <string name="title_reminder">Reminder</string>
+    <string name="summary_reminder">Set Reminder for Tasks</string>
+    <string name="key_reminder">key_reminder</string>
+
+    <string name="title_remindertime">Reminder Time</string>
+    <string name="summary_remindertime">Set time for Reminder to notify</string>
+    <string name="key_remindertime">key_remindertime</string>
 </resources>
