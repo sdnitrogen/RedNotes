@@ -58,9 +58,9 @@ aka Nitrogen Notes is an offline Android Note/Task input application that is act
 - [ ] update : Fingerprint authentication
 
 ## Libraries
-[![Libraries](https://img.shields.io/badge/MaterialSearch-%201.4.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)<br>
-[![Libraries](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)<br>
-[![Libraries](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)<br>
+[![Libraries](https://img.shields.io/badge/com.miguelcatalan:materialsearchview-%201.4.0-green.svg)](https://github.com/MiguelCatalan/MaterialSearchView)<br>
+[![Libraries](https://img.shields.io/badge/com.scottyab:rootbeer-lib%200.0.7-green.svg)](https://github.com/scottyab/rootbeer)<br>
+[![Libraries](https://img.shields.io/badge/com.wdullaer:materialdatetimepicker-%203.6.3-green.svg)](https://github.com/wdullaer/MaterialDateTimePicker)<br>
 
 ## Support Development
 Support development by making donation through Paypal<br>
