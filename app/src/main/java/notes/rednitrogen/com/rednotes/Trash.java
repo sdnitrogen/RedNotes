@@ -57,7 +57,7 @@ public class Trash extends AppCompatActivity {
                 new AlertDialog.Builder(Trash.this)
                         .setTitle("Do you really want to empty Trash?")
                         .setMessage("This will permanently delete all notes in Trash and this action is irreversible")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 int count = recyclerView.getChildCount();

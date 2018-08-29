@@ -55,5 +55,6 @@ android note-taking app that does more than taking notes.
 - [ ] Ads
 - [ ] Fingerprint authentication
 - [ ] Complete Settings functionality
+- [ ] Publish + create developer page in Play Store
 - [ ] Change play store dev page link in about
 

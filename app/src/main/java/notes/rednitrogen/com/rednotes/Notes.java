@@ -325,7 +325,20 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                     createNotification(noteTitle, noteText, position);
                 }
                 else {
-                    deleteNote(position);
+                    //confirmation
+                    AlertDialog aDialog = new AlertDialog.Builder(Notes.this)
+                            .setTitle("Do you really want to delete this note forever?")
+                            .setMessage("(You can slide your note to the left to delete normally and it'll be stored in Trash" +
+                                    " for few days before auto-deletion. You can restore or delete permanently from there if you wish.)")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    deleteNote(position);
+                                }})
+                            .setNegativeButton("NO", null).show();
+                    TextView textView = aDialog.findViewById(android.R.id.message);
+                    textView.setTextSize(15);
+                    textView.setTextColor(Color.GRAY);
                 }
             }
         });
