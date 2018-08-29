@@ -43,15 +43,17 @@ android note-taking app that does more than taking notes.
   - [x] Add new notes to bottom OFF
   - [x] Fingerprint authentication ON/OFF
 - [ ] Help and Support
-  - [ ] About
-  - [ ] Version
+  - [x] About
+  - [x] Version
+  - [x] Rate App
   - [ ] FAQ
   - [ ] Privacy Policy
   - [ ] Terms & Conditions
   - [x] Contact fab
 - [ ] bottom sheet instead of actiondialog
 - [ ] Night Mode
-- [ ] Complete Settings functionality
 - [ ] Ads
 - [ ] Fingerprint authentication
+- [ ] Complete Settings functionality
+- [ ] Change play store dev page link in about
 

@@ -45,4 +45,11 @@
     <string name="title_remindertime">Reminder Time</string>
     <string name="summary_remindertime">Set time for Reminder to notify</string>
     <string name="key_remindertime">key_remindertime</string>
+
+    <!--Strings for Help & Support screen-->
+    <string name="help_about_text_1">Nitrogen Notes is an Android Note/Task input application built
+        by Red Nitrogen.</string>
+    <string name="help_about_text_2">Red Nitrogen is an independent developer specialized in development
+        of Android App Development creating new trends across the app space. Kepp an eye out for future
+        projects on <a href="https://www.google.com/">Play Store Developer page.</a> Glad to Help in anyway!</string>
 </resources>

@@ -1,15 +1,23 @@
 package notes.rednitrogen.com.rednotes;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import notes.rednitrogen.com.rednotes.BuildConfig;
 
 public class HelpAndSupport extends AppCompatActivity {
+
+    private String versionName = BuildConfig.VERSION_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +45,27 @@ public class HelpAndSupport extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack from Nitrogen Notes");
                 intent.putExtra(Intent.EXTRA_TEXT, body);
                 startActivity(Intent.createChooser(intent, "Choose email client"));
+            }
+        });
+
+        ((TextView)findViewById(R.id.about_linked)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView)findViewById(R.id.versionName)).setText(versionName);
+        findViewById(R.id.rateApp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                }
             }
         });
     }
