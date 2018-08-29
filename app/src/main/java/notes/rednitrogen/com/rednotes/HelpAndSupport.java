@@ -13,12 +13,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class HelpAndSupport extends AppCompatActivity {
 
     private String versionName = BuildConfig.VERSION_NAME;
     private String mailSubject = "Generic";
+    private LinearLayout privacyPolicyHead;
+    private LinearLayout privacyPolicyBody;
+    private LinearLayout tncHead;
+    private LinearLayout tncBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,36 @@ public class HelpAndSupport extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_help);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        privacyPolicyHead = findViewById(R.id.privacy_policy_head);
+        privacyPolicyBody = findViewById(R.id.privacy_policy_body);
+
+        privacyPolicyHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(privacyPolicyBody.getVisibility() == View.GONE){
+                    privacyPolicyBody.setVisibility(View.VISIBLE);
+                }
+                else {
+                    privacyPolicyBody.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        tncHead = findViewById(R.id.tnc_head);
+        tncBody = findViewById(R.id.tnc_body);
+
+        tncHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tncBody.getVisibility() == View.GONE){
+                    tncBody.setVisibility(View.VISIBLE);
+                }
+                else {
+                    tncBody.setVisibility(View.GONE);
+                }
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab_help);
         fab.setOnClickListener(new View.OnClickListener() {

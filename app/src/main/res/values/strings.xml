@@ -50,6 +50,17 @@
     <string name="help_about_text_1">Nitrogen Notes is an Android Note/Task input application built
         by Red Nitrogen.</string>
     <string name="help_about_text_2">Red Nitrogen is an independent developer specialized in development
-        of Android App Development creating new trends across the app space. Kepp an eye out for future
+        of Android App Development creating new trends across the app space. Keep an eye out for future
         projects on <a href="https://www.google.com/">Play Store Developer page.</a> Glad to Help in anyway!</string>
+    <string name="tnc_text">This mobile application is made available by Red Nitrogen.\n\n
+    You, the user of the App, confirm your acceptance of these App terms of use. If you do not agree to
+        these App Terms, you must immediately uninstall the App and discontinue it's use. These App Terms should be
+        read alongside Privacy Policy.\n\n
+    If you have any questions regarding our App, you can email us at rednitrogen@protonmail.com</string>
+    <string name="privacy_policy_text">What information is/may be collected from you?\n\n
+    This app has no registration/login process and works offline. Your information are safe with you
+        and we cannot collect any data from you by any means.\n\n
+    Policy updates\n\n
+    Red Nitrogen reserves the right to change or update this policy at any time. Such changes shall
+        be effective immediately upon version update on Play Store.</string>
 </resources>
