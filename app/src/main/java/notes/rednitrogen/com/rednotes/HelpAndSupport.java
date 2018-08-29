@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.scottyab.rootbeer.RootBeer;
+
 public class HelpAndSupport extends AppCompatActivity {
 
     private String versionName = BuildConfig.VERSION_NAME;
@@ -26,6 +28,7 @@ public class HelpAndSupport extends AppCompatActivity {
     private LinearLayout tncBody;
     private LinearLayout faqHead;
     private LinearLayout faqBody;
+    private String rootStatus = "Unrooted";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,11 +150,13 @@ public class HelpAndSupport extends AppCompatActivity {
     }
 
     private void sendFeedback(){
+        rootCheck();
         String body = null;
         try {
             body = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             body = "\n\n-----------------------------\nPlease don't remove this information\n Device OS: Android \n Device OS version: " +
-                    Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " + Build.BRAND +
+                    Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " + Build.BRAND
+                    + "\n Root Status: " + rootStatus +
                     "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER;
         } catch (PackageManager.NameNotFoundException e) {
         }
@@ -161,5 +166,16 @@ public class HelpAndSupport extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, mailSubject);
         intent.putExtra(Intent.EXTRA_TEXT, body);
         startActivity(Intent.createChooser(intent, "Choose email client"));
+    }
+
+    private void rootCheck(){
+        RootBeer rootBeer = new RootBeer(this);
+        if (rootBeer.isRootedWithoutBusyBoxCheck()) {
+            //we found indication of root
+            rootStatus = "Rooted";
+        } else {
+            //we didn't find indication of root
+            rootStatus = "Unrooted";
+        }
     }
 }
