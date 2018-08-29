@@ -50,11 +50,11 @@ android note-taking app that does more than taking notes.
   - [x] Privacy Policy
   - [x] Terms & Conditions
   - [x] Contact fab
-- [ ] bottom sheet instead of actiondialog
 - [ ] Night Mode
 - [ ] Ads
-- [ ] Fingerprint authentication
 - [ ] Complete Settings functionality
 - [ ] Publish + create developer page in Play Store
 - [ ] Change play store dev page link in about
+- [ ] update : bottom sheet instead of actiondialog
+- [ ] update : Fingerprint authentication
 
