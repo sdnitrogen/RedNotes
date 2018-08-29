@@ -51,8 +51,11 @@
         by Red Nitrogen.</string>
     <string name="help_about_text_2">Red Nitrogen is an independent developer specialized in development
         of Android App Development creating new trends across the app space. Keep an eye out for future
-        projects on <a href="https://www.google.com/">Play Store Developer page.</a> Glad to Help in anyway!</string>
+        projects on <a href="https://play.google.com/store/apps/dev?id=6715068722362591614">Play Store Developer page.</a> Glad to Help in anyway!</string>
     <string name="tnc_text">This mobile application is made available by Red Nitrogen.\n\n
+    Save your important information at your own risk. This is an offline app and doesn\'t have a top
+        tier data security. If your data is lost or stolen by any means (even an app update), Red Nitrogen
+        will not be responsible and cannot restore your data.\n\n
     You, the user of the App, confirm your acceptance of these App terms of use. If you do not agree to
         these App Terms, you must immediately uninstall the App and discontinue it\'s use. These App Terms should be
         read alongside Privacy Policy.\n\n
@@ -63,4 +66,17 @@
     Policy updates\n\n
     Red Nitrogen reserves the right to change or update this policy at any time. Such changes shall
         be effective immediately upon version update on Play Store.</string>
+    <string name="fq_1">How can I delete my notes or tasks?</string>
+    <string name="fa_1">You can slide your note/task to the left and it\'ll delete the same. There\'ll
+        be a snackbar at the bottom for few seconds to undo it if done mistakenly. Deleted notes will
+        be stored in Trash for a selected time period before auto-removal and deleted tasks are non-recoverable.</string>
+    <string name="fq_2">How can I sync my notes/tasks with another device?</string>
+    <string name="fa_2">You can not. This app works offline and doesn\'t need you to login/register in
+        order to use. So your data is not stored in server and it cannot be synced.</string>
+    <string name="fq_3">Why are some settings disabled?</string>
+    <string name="fa_3">These settings are currently under development and will be available in
+        upcoming app updates (you can get a sneak peek what's coming from here)</string>
+    <string name="fq_4">I ran into a major bug. What should I do?</string>
+    <string name="fa_4">Please tap on the mail icon on the bottom right of this screen , select Bug
+        Report and send us a mail (preferably with screenshots)</string>
 </resources>

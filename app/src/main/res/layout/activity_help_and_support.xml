@@ -177,6 +177,86 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/faq_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_regular"
+                        android:padding="15dp"
+                        android:text="@string/fq_1"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_thin"
+                        android:padding="15dp"
+                        android:text="@string/fa_1"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_regular"
+                        android:padding="15dp"
+                        android:text="@string/fq_2"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_thin"
+                        android:padding="15dp"
+                        android:text="@string/fa_2"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_regular"
+                        android:padding="15dp"
+                        android:text="@string/fq_3"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_thin"
+                        android:padding="15dp"
+                        android:text="@string/fa_3"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_regular"
+                        android:padding="15dp"
+                        android:text="@string/fq_4"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_next_thin"
+                        android:padding="15dp"
+                        android:text="@string/fa_4"
+                        android:textSize="15dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@android:color/darker_gray" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/privacy_policy_head"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

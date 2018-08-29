@@ -24,6 +24,8 @@ public class HelpAndSupport extends AppCompatActivity {
     private LinearLayout privacyPolicyBody;
     private LinearLayout tncHead;
     private LinearLayout tncBody;
+    private LinearLayout faqHead;
+    private LinearLayout faqBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,21 @@ public class HelpAndSupport extends AppCompatActivity {
                 }
                 else {
                     tncBody.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        faqHead = findViewById(R.id.faq_head);
+        faqBody = findViewById(R.id.faq_body);
+
+        faqHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(faqBody.getVisibility() == View.GONE){
+                    faqBody.setVisibility(View.VISIBLE);
+                }
+                else {
+                    faqBody.setVisibility(View.GONE);
                 }
             }
         });
@@ -111,7 +128,7 @@ public class HelpAndSupport extends AppCompatActivity {
                     startActivity(goToMarket);
                 } catch (ActivityNotFoundException e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
                 }
             }
         });

@@ -42,17 +42,17 @@ android note-taking app that does more than taking notes.
   - [x] Auto-delete trash time settings
   - [x] Add new notes to bottom OFF
   - [x] Fingerprint authentication ON/OFF
-- [ ] Help and Support
+- [x] Help and Support
   - [x] About
   - [x] Version
   - [x] Rate App
-  - [ ] FAQ
+  - [x] FAQ
   - [x] Privacy Policy
   - [x] Terms & Conditions
   - [x] Contact fab
 - [ ] Night Mode
-- [ ] Ads
 - [ ] Complete Settings functionality
+- [ ] Ads
 - [ ] Publish + create developer page in Play Store
 - [ ] Change play store dev page link in about
 - [ ] update : bottom sheet instead of actiondialog
