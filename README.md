@@ -1,9 +1,9 @@
 ## RedNotes
-android simple note-taking app that does what it says.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+<br>aka Nitrogen Notes is an offline Android Note/Task input application that is actively being worked on to implement new features , new design and better UX . It's simple , straightforward and easy.
 
 
 #### To-Do
-
 - [x] Main Notes Activity
 - [x] SQLite Database
 - [x] Recycler Listview
@@ -58,9 +58,12 @@ android simple note-taking app that does what it says.
 - [ ] update : bottom sheet instead of actiondialog
 - [ ] update : Fingerprint authentication
 
+## Support Development
+Support development by making donation through Paypal<br>
+[![Donate](https://www.freepngimg.com/thumb/paypal_donate_button/6-2-paypal-donate-button-png-file-thumb.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=red.nitrogen.n2@gmail.com&lc=US&item_name=Donation+to+Red+Nitrogen+Saikat+Datta&no_note=0&cn=&currency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted)
 
 ## License
-
+```
 Copyright [2018] [Red Nitrogen , AssassiNCrizR]
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -74,3 +77,4 @@ Copyright [2018] [Red Nitrogen , AssassiNCrizR]
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+```
