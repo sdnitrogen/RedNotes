@@ -9,6 +9,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import android.widget.Toast;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import notes.rednitrogen.com.rednotes.R;
@@ -65,6 +67,8 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     private String currentQuery;
 
     private DatabaseHelper db;
+    SharedPreferences shPrefs;
+    public static  SharedPreferences.Editor shEditor;
 
     private AlertDialog alertDialog = null;
 
@@ -91,8 +95,13 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         ((NavigationView) findViewById(R.id.nv)).setCheckedItem(R.id.nav_notes);
 
         db = new DatabaseHelper(this);
+        shPrefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        shEditor = shPrefs.edit();
 
         notesList.addAll(db.getGoodNotes());
+        if(shPrefs.getBoolean("isReversed", false)){
+            Collections.reverse(notesList);
+        }
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -242,9 +251,13 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         Note n = db.getNote(id);
 
         if (n != null) {
-            // adding new note to array list at 0 position
-            notesList.add(0, n);
-
+            if(shPrefs.getBoolean("isReversed", false)){
+                notesList.add(notesList.size(), n);
+            }
+            else {
+                // adding new note to array list at 0 position
+                notesList.add(0, n);
+            }
             // refreshing the list
             mAdapter.notifyDataSetChanged();
 
@@ -517,7 +530,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 break;
             case R.id.nav_tasks:
                 intent = new Intent(this, Tasks.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_trash:
@@ -527,7 +540,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 break;
             case R.id.nav_settings:
                 intent = new Intent(this, Settings.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_help_and_support:
@@ -556,6 +569,9 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         notesList.removeAll(notesList);
         notesList.addAll(db.getGoodNotes());
+        if(shPrefs.getBoolean("isReversed", false)){
+            Collections.reverse(notesList);
+        }
         mAdapter.notifyDataSetChanged();
         toggleEmptyNotes();
     }

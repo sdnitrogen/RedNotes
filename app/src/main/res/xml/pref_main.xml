@@ -2,12 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="General">
         <SwitchPreference
+            android:enabled="false"
             android:defaultValue="false"
             android:key="@string/key_nightmode"
             android:summary="@string/summary_nightmode"
             android:title="@string/title_nightmode" />
 
         <SwitchPreference
+            android:enabled="false"
             android:defaultValue="false"
             android:key="@string/key_fingerauth"
             android:summary="@string/summary_fingerauth"
