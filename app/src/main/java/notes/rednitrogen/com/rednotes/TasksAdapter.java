@@ -1,10 +1,8 @@
 package notes.rednitrogen.com.rednotes;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,10 +127,5 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
         tasksList.add(position, task);
         // notify item added by position
         notifyItemInserted(position);
-    }
-
-    public void setTasksList(List<Task> tasksList){
-        this.tasksList = tasksList;
-        notifyDataSetChanged();
     }
 }

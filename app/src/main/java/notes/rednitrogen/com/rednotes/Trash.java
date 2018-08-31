@@ -1,6 +1,5 @@
 package notes.rednitrogen.com.rednotes;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +10,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import notes.rednitrogen.com.rednotes.database.DatabaseHelper;
@@ -48,6 +50,17 @@ public class Trash extends AppCompatActivity {
         db = new DatabaseHelper(this);
 
         deletedNotesList.addAll(db.getDeletedNotes());
+        for(int i = 0; i < deletedNotesList.size(); i++){
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date delDate = sdf.parse(deletedNotesList.get(i).getDeletedTime());
+                if (System.currentTimeMillis() > delDate.getTime()) {
+                    permaDeleteNote(i);
+                }
+            } catch (ParseException e) {
+
+            }
+        }
 
         FloatingActionButton fab = findViewById(R.id.fab_trash);
         fab.setOnClickListener(new View.OnClickListener() {

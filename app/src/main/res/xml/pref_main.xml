@@ -43,7 +43,7 @@
 
     <PreferenceCategory android:title="Trash">
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="0"
             android:dialogTitle="@string/title_trashtime"
             android:entries="@array/pref_trash_time_entries"
             android:entryValues="@array/pref_trash_time_values"

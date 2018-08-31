@@ -8,12 +8,14 @@ public class Note {
     public static final String COLUMN_NOTE = "note";
     public static final String COLUMN_TIMESTAMP = "timestamp";
     public static final String COLUMN_DELETED = "deleted";
+    public static final String COLUMN_DELETED_TIME = "deletedTime";
 
     private int id;
     private String title;
     private String note;
     private String timestamp;
     private String deleted;
+    private String deletedTime;
 
 
     // Create table SQL query
@@ -23,18 +25,20 @@ public class Note {
                     + COLUMN_NOTE_TITLE + " TEXT,"
                     + COLUMN_NOTE + " TEXT,"
                     + COLUMN_DELETED + " TEXT,"
-                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                    + COLUMN_DELETED_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
     public Note() {
     }
 
-    public Note(int id, String title, String note, String timestamp, String deleted) {
+    public Note(int id, String title, String note, String timestamp, String deleted, String deletedTime) {
         this.id = id;
         this.title = title;
         this.note = note;
         this.timestamp = timestamp;
         this.deleted = deleted;
+        this.deletedTime = deletedTime;
     }
 
     public int getId() {
@@ -75,5 +79,13 @@ public class Note {
 
     public String getDeleted() {
         return deleted;
+    }
+
+    public String getDeletedTime() {
+        return deletedTime;
+    }
+
+    public void setDeletedTime(String deletedTime) {
+        this.deletedTime = deletedTime;
     }
 }

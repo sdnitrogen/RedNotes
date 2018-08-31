@@ -42,6 +42,34 @@ public class Settings extends AppCompatActivity {
                     return true;
                 }
             });
+
+            findPreference("key_trashtime").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String textValue = newValue.toString();
+                    switch (textValue){
+                        case "0":
+                            Notes.shEditor.putInt("trashTime", 7);
+                            Notes.shEditor.commit();
+                            break;
+                        case "1":
+                            Notes.shEditor.putInt("trashTime", 14);
+                            Notes.shEditor.commit();
+                            break;
+                        case "2":
+                            Notes.shEditor.putInt("trashTime", 30);
+                            Notes.shEditor.commit();
+                            break;
+                        case "3":
+                            Notes.shEditor.putInt("trashTime", 180);
+                            Notes.shEditor.commit();
+                            break;
+                        default:
+                            break;
+                    }
+                    return true;
+                }
+            });
         }
     }
 

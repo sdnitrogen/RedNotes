@@ -52,7 +52,7 @@ aka Nitrogen Notes is an offline Android Note/Task input application that is act
 - [ ] Complete other Settings functionality
   - [x] Add new notes to bottom
   - [ ] Reminder for Tasks
-  - [ ] Auto-delete trash
+  - [x] Auto-delete trash
 - [ ] Ads
 - [ ] Publish + create developer page in Play Store
 - [ ] Change play store dev page link in about

@@ -43,7 +43,9 @@ import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -97,6 +99,8 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         db = new DatabaseHelper(this);
         shPrefs = getSharedPreferences("Settings", MODE_PRIVATE);
         shEditor = shPrefs.edit();
+        shEditor.putInt("trashTime",7);
+        shEditor.commit();
 
         notesList.addAll(db.getGoodNotes());
         if(shPrefs.getBoolean("isReversed", false)){
@@ -220,6 +224,13 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             // remove the item from recycler view
             mAdapter.removeItem(viewHolder.getAdapterPosition());
             db.setNoteDel(deletedItem);
+
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, shPrefs.getInt("trashTime",7));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String delDate = sdf.format(c.getTime());
+            deletedItem.setDeletedTime(delDate);
+            db.updateNoteDelTime(deletedItem);
 
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar

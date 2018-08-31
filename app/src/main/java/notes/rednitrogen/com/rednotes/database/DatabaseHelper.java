@@ -71,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(Note.TABLE_NAME,
-                new String[]{Note.COLUMN_ID, Note.COLUMN_NOTE_TITLE, Note.COLUMN_NOTE, Note.COLUMN_TIMESTAMP, Note.COLUMN_DELETED},
+                new String[]{Note.COLUMN_ID, Note.COLUMN_NOTE_TITLE, Note.COLUMN_NOTE, Note.COLUMN_TIMESTAMP, Note.COLUMN_DELETED, Note.COLUMN_DELETED_TIME},
                 Note.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -84,7 +84,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(Note.COLUMN_NOTE_TITLE)),
                 cursor.getString(cursor.getColumnIndex(Note.COLUMN_NOTE)),
                 cursor.getString(cursor.getColumnIndex(Note.COLUMN_TIMESTAMP)),
-                cursor.getString(cursor.getColumnIndex(Note.COLUMN_DELETED)));
+                cursor.getString(cursor.getColumnIndex(Note.COLUMN_DELETED)),
+                cursor.getString(cursor.getColumnIndex(Note.COLUMN_DELETED_TIME)));
 
         // close the db connection
         cursor.close();
@@ -111,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 note.setNote(cursor.getString(cursor.getColumnIndex(Note.COLUMN_NOTE)));
                 note.setTimestamp(cursor.getString(cursor.getColumnIndex(Note.COLUMN_TIMESTAMP)));
                 note.setDeleted(cursor.getString(cursor.getColumnIndex(Note.COLUMN_DELETED)));
+                note.setDeletedTime(cursor.getString(cursor.getColumnIndex(Note.COLUMN_DELETED_TIME)));
 
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -142,6 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 note.setNote(cursor.getString(cursor.getColumnIndex(Note.COLUMN_NOTE)));
                 note.setTimestamp(cursor.getString(cursor.getColumnIndex(Note.COLUMN_TIMESTAMP)));
                 note.setDeleted(cursor.getString(cursor.getColumnIndex(Note.COLUMN_DELETED)));
+                note.setDeletedTime(cursor.getString(cursor.getColumnIndex(Note.COLUMN_DELETED_TIME)));
 
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -214,5 +217,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(Note.TABLE_NAME, Note.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(note.getId())});
         db.close();
+    }
+
+    public int updateNoteDelTime(Note note){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Note.COLUMN_DELETED_TIME, note.getDeletedTime());
+        return db.update(Note.TABLE_NAME, values, Note.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(note.getId())});
     }
 }
