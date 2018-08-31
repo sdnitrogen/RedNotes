@@ -2,6 +2,7 @@ package notes.rednitrogen.com.rednotes;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -53,6 +54,10 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private TextView noTasksView;
 
     public static TaskDBHelper mydb;
+
+    SharedPreferences shTaskPrefs;
+    public static  SharedPreferences.Editor shTaskEditor;
+
     private DatePickerDialog dpd;
 
     private AlertDialog alertDialog = null;
@@ -77,6 +82,10 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         ((NavigationView) findViewById(R.id.nv)).setCheckedItem(R.id.nav_tasks);
 
         mydb = new TaskDBHelper(this);
+
+        shTaskPrefs = getSharedPreferences("Reminders", MODE_PRIVATE);
+        shTaskEditor = shTaskPrefs.edit();
+
         tasksList.addAll(mydb.getAllTasks());
 
         FloatingActionButton fab = findViewById(R.id.fab_tasks);

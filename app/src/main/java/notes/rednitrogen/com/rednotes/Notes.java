@@ -99,8 +99,6 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         db = new DatabaseHelper(this);
         shPrefs = getSharedPreferences("Settings", MODE_PRIVATE);
         shEditor = shPrefs.edit();
-        shEditor.putInt("trashTime",7);
-        shEditor.commit();
 
         notesList.addAll(db.getGoodNotes());
         if(shPrefs.getBoolean("isReversed", false)){
