@@ -52,6 +52,9 @@ aka Nitrogen Notes is an offline Android Note/Task input application that is act
 - [ ] Complete other Settings functionality
   - [x] Add new notes to bottom
   - [ ] Reminder for Tasks
+    - [x] Create Notification
+	- [ ] Update Notification
+	- [ ] Remove all notifications
   - [x] Auto-delete trash
 - [ ] Ads
 - [ ] Publish + create developer page in Play Store
@@ -64,6 +67,7 @@ aka Nitrogen Notes is an offline Android Note/Task input application that is act
 [![Libraries](https://img.shields.io/badge/com.miguelcatalan:materialsearchview-%201.4.0-green.svg)](https://github.com/MiguelCatalan/MaterialSearchView)<br>
 [![Libraries](https://img.shields.io/badge/com.scottyab:rootbeer-lib%200.0.7-green.svg)](https://github.com/scottyab/rootbeer)<br>
 [![Libraries](https://img.shields.io/badge/com.wdullaer:materialdatetimepicker-%203.6.3-green.svg)](https://github.com/wdullaer/MaterialDateTimePicker)<br>
+[![Libraries](https://img.shields.io/badge/JitPack-jakebonk:notifyMe%201.0.0-green.svg)](https://jitpack.io/#jakebonk/NotifyMe)<br>
 
 ## Support Development
 Support development by making donation through Paypal<br>

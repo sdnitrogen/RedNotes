@@ -76,13 +76,13 @@ public class Settings extends AppCompatActivity {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (((SwitchPreference)preference).isChecked()){
                         //toggle off
-                        Tasks.shTaskEditor.putBoolean("isRemind", false);
-                        Tasks.shTaskEditor.commit();
+                        Notes.shTaskEditor.putBoolean("isRemind", false);
+                        Notes.shTaskEditor.commit();
                     }
                     else {
                         //toggle on
-                        Tasks.shTaskEditor.putBoolean("isRemind", true);
-                        Tasks.shTaskEditor.commit();
+                        Notes.shTaskEditor.putBoolean("isRemind", true);
+                        Notes.shTaskEditor.commit();
                     }
                     return true;
                 }
@@ -94,52 +94,52 @@ public class Settings extends AppCompatActivity {
                     String textValue = newValue.toString();
                     switch (textValue){
                         case "0":
-                            Tasks.shTaskEditor.putString("remindTime", "00");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 1);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "1":
-                            Tasks.shTaskEditor.putString("remindTime", "02");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 2);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "2":
-                            Tasks.shTaskEditor.putString("remindTime", "04");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 4);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "3":
-                            Tasks.shTaskEditor.putString("remindTime", "06");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 6);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "4":
-                            Tasks.shTaskEditor.putString("remindTime", "08");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 8);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "5":
-                            Tasks.shTaskEditor.putString("remindTime", "10");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 10);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "6":
-                            Tasks.shTaskEditor.putString("remindTime", "12");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 12);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "7":
-                            Tasks.shTaskEditor.putString("remindTime", "14");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 14);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "8":
-                            Tasks.shTaskEditor.putString("remindTime", "16");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 16);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "9":
-                            Tasks.shTaskEditor.putString("remindTime", "18");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 18);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "10":
-                            Tasks.shTaskEditor.putString("remindTime", "20");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 20);
+                            Notes.shTaskEditor.commit();
                             break;
                         case "11":
-                            Tasks.shTaskEditor.putString("remindTime", "22");
-                            Tasks.shTaskEditor.commit();
+                            Notes.shTaskEditor.putInt("remindTime", 22);
+                            Notes.shTaskEditor.commit();
                             break;
                         default:
                             break;

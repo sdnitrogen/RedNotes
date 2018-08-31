@@ -6,7 +6,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_notes"
-            android:icon="@drawable/ic_note_black_24dp"
+            android:icon="@drawable/ic_notification_icon"
             android:title="@string/nav_notes" />
         <item
             android:id="@+id/nav_tasks"

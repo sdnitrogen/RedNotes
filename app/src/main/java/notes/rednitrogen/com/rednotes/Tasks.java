@@ -2,7 +2,6 @@ package notes.rednitrogen.com.rednotes;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -29,6 +28,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.allyants.notifyme.NotifyMe;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.ParseException;
@@ -55,12 +55,13 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
 
     public static TaskDBHelper mydb;
 
-    SharedPreferences shTaskPrefs;
-    public static  SharedPreferences.Editor shTaskEditor;
 
     private DatePickerDialog dpd;
 
     private AlertDialog alertDialog = null;
+
+    Calendar reminderCal = Calendar.getInstance();
+    long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +83,6 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         ((NavigationView) findViewById(R.id.nv)).setCheckedItem(R.id.nav_tasks);
 
         mydb = new TaskDBHelper(this);
-
-        shTaskPrefs = getSharedPreferences("Reminders", MODE_PRIVATE);
-        shTaskEditor = shTaskPrefs.edit();
 
         tasksList.addAll(mydb.getAllTasks());
 
@@ -161,7 +159,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private void createTask(String task, String checked, String time) {
         // inserting note in db and getting
         // newly inserted note id
-        long id = mydb.insertTask(task, checked, time);
+        id = mydb.insertTask(task, checked, time);
 
         // get the newly inserted note from db
         Task t = mydb.getTask(id);
@@ -215,6 +213,12 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 dpd = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
                                                        @Override
                                                        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                                           reminderCal.set(Calendar.YEAR, year);
+                                                           reminderCal.set(Calendar.MONTH, monthOfYear);
+                                                           reminderCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                                           reminderCal.set(Calendar.HOUR_OF_DAY, Notes.shTaskPrefs.getInt("remindTime", 8));
+                                                           reminderCal.set(Calendar.MINUTE,0);
+                                                           reminderCal.set(Calendar.SECOND,0);
                                                            String date = (dayOfMonth < 10 ? "0" + dayOfMonth : "" + dayOfMonth) + "/" +
                                                                    ((monthOfYear+1) < 10 ? "0" + (monthOfYear+1) : "" + (monthOfYear+1)) + "/" +
                                                                    year;
@@ -284,6 +288,17 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 } else {
                     // create new note
                     createTask(inputTask.getText().toString(), "false", inputTime.getText().toString());
+                    if(Notes.shTaskPrefs.getBoolean("isRemind", false)){
+                        NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
+                                .title("You have a Task")
+                                .content(inputTask.getText().toString())
+                                .color(255,0,0,0)
+                                .led_color(255,255,255,255)
+                                .time(reminderCal)
+                                .small_icon(R.drawable.ic_assignment_black_24dp)
+                                .key(String.valueOf(id))
+                                .build();
+                    }
                 }
             }
         });

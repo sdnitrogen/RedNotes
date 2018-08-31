@@ -44,4 +44,5 @@ dependencies {
     implementation('com.wdullaer:materialdatetimepicker:3.6.3') {
         exclude group: 'com.android.support'
     }
+    implementation 'com.github.jakebonk:NotifyMe:1.0.0'
 }

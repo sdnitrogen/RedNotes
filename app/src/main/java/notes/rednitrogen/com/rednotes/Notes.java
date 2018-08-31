@@ -69,8 +69,9 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     private String currentQuery;
 
     private DatabaseHelper db;
-    SharedPreferences shPrefs;
+    public static SharedPreferences shPrefs, shTaskPrefs;
     public static  SharedPreferences.Editor shEditor;
+    public static  SharedPreferences.Editor shTaskEditor;
 
     private AlertDialog alertDialog = null;
 
@@ -99,6 +100,8 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         db = new DatabaseHelper(this);
         shPrefs = getSharedPreferences("Settings", MODE_PRIVATE);
         shEditor = shPrefs.edit();
+        shTaskPrefs = getSharedPreferences("Reminders", MODE_PRIVATE);
+        shTaskEditor = shTaskPrefs.edit();
 
         notesList.addAll(db.getGoodNotes());
         if(shPrefs.getBoolean("isReversed", false)){
