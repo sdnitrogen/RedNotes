@@ -49,12 +49,12 @@ aka Nitrogen Notes is an offline Android Note/Task input application that is act
   - [x] Privacy Policy
   - [x] Terms & Conditions
   - [x] Contact fab
-- [ ] Complete other Settings functionality
+- [x] Complete other Settings functionality
   - [x] Add new notes to bottom
-  - [ ] Reminder for Tasks
+  - [x] Reminder for Tasks
     - [x] Create Notification
 	- [x] Update Notification
-	- [ ] Remove all notifications
+	- [x] Remove all notifications
   - [x] Auto-delete trash
 - [ ] Ads
 - [ ] Publish + create developer page in Play Store

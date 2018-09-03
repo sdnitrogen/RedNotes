@@ -105,6 +105,15 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(taskRecyclerView);
 
         toggleEmptyTasks();
+
+        String identity = getIntent().getStringExtra("identity");
+        if(identity != null && identity.equals("notification")){
+            long idc = getIntent().getLongExtra("id",0);
+            Task task = mydb.getTask(idc);
+            task.setChecked("true");
+            mydb.updateTaskCheck(task);
+            refresh();
+        }
     }
 
     private void toggleEmptyTasks() {
@@ -172,6 +181,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
 
     private void updateTask(String task, String time, int position) {
         Task t = tasksList.get(position);
+        id = t.getId();
         // updating note text
         t.setTask(task);
         t.setTime(time);
@@ -287,6 +297,10 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                     // update note by it's id
                     updateTask(inputTask.getText().toString(), inputTime.getText().toString(), position);
                     if(Notes.shTaskPrefs.getBoolean("isRemind", false)){
+                        Intent actionIntent = new Intent(Tasks.this,Tasks.class);
+                        actionIntent.putExtra("id", id);
+                        actionIntent.putExtra("identity","notification");
+                        actionIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         NotifyMe.cancel(getApplicationContext(), String.valueOf(id));
                         NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
                                 .title("You have a Task")
@@ -296,13 +310,17 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                                 .time(reminderCal)
                                 .small_icon(R.drawable.ic_assignment_black_24dp)
                                 .key(String.valueOf(id))
-                                .addAction(new Intent(), "Done", true, true)
+                                .addAction(actionIntent, "Done", true, true)
                                 .build();
                     }
                 } else {
                     // create new note
                     createTask(inputTask.getText().toString(), "false", inputTime.getText().toString());
                     if(Notes.shTaskPrefs.getBoolean("isRemind", false)){
+                        Intent actionIntent = new Intent(Tasks.this,Tasks.class);
+                        actionIntent.putExtra("id", id);
+                        actionIntent.putExtra("identity","notification");
+                        actionIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
                                 .title("You have a Task")
                                 .content(inputTask.getText().toString())
@@ -311,7 +329,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                                 .time(reminderCal)
                                 .small_icon(R.drawable.ic_assignment_black_24dp)
                                 .key(String.valueOf(id))
-                                .addAction(new Intent(), "Done", true, true)
+                                .addAction(actionIntent, "Done", true, true)
                                 .build();
                     }
                 }
