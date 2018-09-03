@@ -1,7 +1,9 @@
 package notes.rednitrogen.com.rednotes;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -21,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,6 +105,9 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
 
         if (BuildConfig.FLAVOR.equals("free")){
             mAdView = findViewById(R.id.adView);
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)fab.getLayoutParams();
+            params.setMargins(0, 0, getPixelsFromDPs(Tasks.this, 16), getPixelsFromDPs(Tasks.this, 60)); //substitute parameters for left, top, right, bottom
+            fab.setLayoutParams(params);
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                     .build();
@@ -476,5 +482,12 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
             }
         }
         super.onDestroy();
+    }
+
+    public static int getPixelsFromDPs(Activity activity, int dps){
+        Resources r = activity.getResources();
+        int  px = (int) (TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dps, r.getDisplayMetrics()));
+        return px;
     }
 }

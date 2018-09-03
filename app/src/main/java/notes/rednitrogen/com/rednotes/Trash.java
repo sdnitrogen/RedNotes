@@ -1,6 +1,8 @@
 package notes.rednitrogen.com.rednotes;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +97,9 @@ public class Trash extends AppCompatActivity {
 
         if (BuildConfig.FLAVOR.equals("free")){
             mAdView = findViewById(R.id.adView);
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)fab.getLayoutParams();
+            params.setMargins(0, 0, getPixelsFromDPs(Trash.this, 16), getPixelsFromDPs(Trash.this, 60)); //substitute parameters for left, top, right, bottom
+            fab.setLayoutParams(params);
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                     .build();
@@ -263,5 +269,12 @@ public class Trash extends AppCompatActivity {
             }
         }
         super.onDestroy();
+    }
+
+    public static int getPixelsFromDPs(Activity activity, int dps){
+        Resources r = activity.getResources();
+        int  px = (int) (TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dps, r.getDisplayMetrics()));
+        return px;
     }
 }
