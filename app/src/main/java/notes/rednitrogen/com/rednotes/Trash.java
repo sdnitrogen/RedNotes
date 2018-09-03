@@ -13,6 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +33,8 @@ import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
 
 public class Trash extends AppCompatActivity {
 
+    private InterstitialAd mInterstitialAd;
+
     private TrashAdapter mAdapter;
     private List<Note> deletedNotesList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
@@ -34,6 +42,8 @@ public class Trash extends AppCompatActivity {
     private TextView noNotesView;
 
     private DatabaseHelper db;
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +91,39 @@ public class Trash extends AppCompatActivity {
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
+
+        if (BuildConfig.FLAVOR.equals("free")){
+            mAdView = findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .build();
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                }
+
+                @Override
+                public void onAdClosed() {
+                    Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                    Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                }
+            });
+            mAdView.loadAd(adRequest);
+        }
 
         mAdapter = new TrashAdapter(this, deletedNotesList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -153,6 +196,9 @@ public class Trash extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            loadInterstitialAd();
+        }
         super.onBackPressed();
         overridePendingTransition(R.anim.slidein_left, R.anim.slideout_left);
     }
@@ -161,5 +207,61 @@ public class Trash extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void loadInterstitialAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+        mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if(mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
+    }
+
+    @Override
+    public void onPause() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onPause() method.
+            if (mAdView != null) {
+                mAdView.pause();
+            }
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onResume() method.
+            if (mAdView != null) {
+                mAdView.resume();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onDestroy() method.
+            if (mAdView != null) {
+                mAdView.destroy();
+            }
+        }
+        super.onDestroy();
     }
 }

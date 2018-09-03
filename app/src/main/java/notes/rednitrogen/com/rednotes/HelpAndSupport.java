@@ -16,9 +16,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import com.scottyab.rootbeer.RootBeer;
 
 public class HelpAndSupport extends AppCompatActivity {
+
+    private InterstitialAd mInterstitialAd;
 
     private String versionName = BuildConfig.VERSION_NAME;
     private String mailSubject = "Generic";
@@ -139,6 +145,9 @@ public class HelpAndSupport extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            loadInterstitialAd();
+        }
         super.onBackPressed();
         overridePendingTransition(R.anim.slidein_left, R.anim.slideout_left);
     }
@@ -177,5 +186,28 @@ public class HelpAndSupport extends AppCompatActivity {
             //we didn't find indication of root
             rootStatus = "Unrooted";
         }
+    }
+
+    private void loadInterstitialAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+        mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if(mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
     }
 }

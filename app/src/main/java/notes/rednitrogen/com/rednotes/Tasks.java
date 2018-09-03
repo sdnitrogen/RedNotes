@@ -28,6 +28,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import com.allyants.notifyme.NotifyMe;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -59,6 +63,8 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private DatePickerDialog dpd;
 
     private AlertDialog alertDialog = null;
+
+    private AdView mAdView;
 
     Calendar reminderCal = Calendar.getInstance();
     long id;
@@ -93,6 +99,39 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 showTaskDialog(false, null, -1);
             }
         });
+
+        if (BuildConfig.FLAVOR.equals("free")){
+            mAdView = findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .build();
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                }
+
+                @Override
+                public void onAdClosed() {
+                    Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                    Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                }
+            });
+            mAdView.loadAd(adRequest);
+        }
 
         tAdapter = new TasksAdapter(this, tasksList);
         RecyclerView.LayoutManager tLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -404,5 +443,38 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onPause() method.
+            if (mAdView != null) {
+                mAdView.pause();
+            }
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onResume() method.
+            if (mAdView != null) {
+                mAdView.resume();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onDestroy() method.
+            if (mAdView != null) {
+                mAdView.destroy();
+            }
+        }
+        super.onDestroy();
     }
 }
