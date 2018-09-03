@@ -7,12 +7,22 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "notes.rednitrogen.com.rednotes"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    flavorDimensions "version"
+    productFlavors {
+        free {
+            dimension "version"
+            applicationId "notes.rednitrogen.com.rednotes.free"
+        }
+        paid {
+            dimension "version"
+            applicationId "cnotes.rednitrogen.com.rednotes.paid"
+        }
     }
     buildTypes {
         release {
