@@ -144,6 +144,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                     //see Snackbar.Callback docs for event details
                     if (event == DISMISS_EVENT_SWIPE || event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE || event == DISMISS_EVENT_MANUAL){
                         deleteTask(deletedItem);
+                        NotifyMe.cancel(getApplicationContext(), String.valueOf(deletedItem.getId()));
                     }
                 }
 
@@ -285,6 +286,19 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 if (shouldUpdate && task != null) {
                     // update note by it's id
                     updateTask(inputTask.getText().toString(), inputTime.getText().toString(), position);
+                    if(Notes.shTaskPrefs.getBoolean("isRemind", false)){
+                        NotifyMe.cancel(getApplicationContext(), String.valueOf(id));
+                        NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
+                                .title("You have a Task")
+                                .content(inputTask.getText().toString())
+                                .color(255,0,0,0)
+                                .led_color(255,255,255,255)
+                                .time(reminderCal)
+                                .small_icon(R.drawable.ic_assignment_black_24dp)
+                                .key(String.valueOf(id))
+                                .addAction(new Intent(), "Done", true, true)
+                                .build();
+                    }
                 } else {
                     // create new note
                     createTask(inputTask.getText().toString(), "false", inputTime.getText().toString());
@@ -297,6 +311,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                                 .time(reminderCal)
                                 .small_icon(R.drawable.ic_assignment_black_24dp)
                                 .key(String.valueOf(id))
+                                .addAction(new Intent(), "Done", true, true)
                                 .build();
                     }
                 }

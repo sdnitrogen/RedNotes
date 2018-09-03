@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.allyants.notifyme.NotifyMe;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,6 +84,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
                 if(holder.checkBox.isChecked()){
                     holder.task.setPaintFlags(holder.task.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     task.setChecked("true");
+                    NotifyMe.cancel(context.getApplicationContext(), String.valueOf(task.getId()));
                 }
                 else{
                     holder.task.setPaintFlags(0);
