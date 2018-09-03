@@ -46,7 +46,7 @@ import notes.rednitrogen.com.rednotes.utils.TaskRecyclerItemTouchHelper;
 public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
     private TasksAdapter tAdapter;
-    private List<Task> tasksList = new ArrayList<>();
+    public static List<Task> tasksList = new ArrayList<>();
     private CoordinatorLayout taskCoordinatorLayout;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;

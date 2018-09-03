@@ -1,12 +1,16 @@
 package notes.rednitrogen.com.rednotes;
 
+import android.content.DialogInterface;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+
+import com.allyants.notifyme.NotifyMe;
 
 public class Settings extends AppCompatActivity {
 
@@ -78,6 +82,18 @@ public class Settings extends AppCompatActivity {
                         //toggle off
                         Notes.shTaskEditor.putBoolean("isRemind", false);
                         Notes.shTaskEditor.commit();
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("Do you want to clear all Reminders?")
+                                .setMessage("This will clear all reminders previously created when adding tasks.")
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        int count = Tasks.tasksList.size();
+                                        for (int i = 0; i < count; i++){
+                                            NotifyMe.cancel(getActivity().getApplicationContext(), String.valueOf(Tasks.tasksList.get(i).getId()));
+                                        }
+                                    }})
+                                .setNegativeButton(android.R.string.no, null).show();
                     }
                     else {
                         //toggle on
