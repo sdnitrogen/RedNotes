@@ -41,6 +41,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.text.SimpleDateFormat;
@@ -76,6 +80,8 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     private AlertDialog alertDialog = null;
 
     boolean doubleBackToExitPressedOnce = false;
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +121,39 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 showNoteDialog(false, null, -1);
             }
         });
+
+        if (BuildConfig.FLAVOR.equals("free")){
+            mAdView = findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .build();
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                }
+
+                @Override
+                public void onAdClosed() {
+                    Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                    Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                }
+            });
+            mAdView.loadAd(adRequest);
+        }
 
         mAdapter = new NotesAdapter(this, notesList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -586,5 +625,38 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         }
         mAdapter.notifyDataSetChanged();
         toggleEmptyNotes();
+    }
+
+    @Override
+    public void onPause() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onPause() method.
+            if (mAdView != null) {
+                mAdView.pause();
+            }
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onResume() method.
+            if (mAdView != null) {
+                mAdView.resume();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (BuildConfig.FLAVOR.equals("free")){
+            // This method should be called in the parent Activity's onDestroy() method.
+            if (mAdView != null) {
+                mAdView.destroy();
+            }
+        }
+        super.onDestroy();
     }
 }

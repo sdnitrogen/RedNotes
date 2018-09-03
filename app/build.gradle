@@ -55,4 +55,5 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation 'com.github.jakebonk:NotifyMe:1.0.0'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
 }
