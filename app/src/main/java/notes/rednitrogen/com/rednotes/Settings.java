@@ -10,15 +10,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-
 import com.allyants.notifyme.NotifyMe;
 
 public class Settings extends AppCompatActivity {
-
-    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,9 +168,6 @@ public class Settings extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (BuildConfig.FLAVOR.equals("free")){
-            loadInterstitialAd();
-        }
         super.onBackPressed();
         overridePendingTransition(R.anim.slidein_left, R.anim.slideout_left);
     }
@@ -185,28 +176,5 @@ public class Settings extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    private void loadInterstitialAd() {
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
-        mInterstitialAd.setAdListener(new AdListener() {
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                if(mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                }
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-            }
-        });
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mInterstitialAd.loadAd(adRequest);
     }
 }

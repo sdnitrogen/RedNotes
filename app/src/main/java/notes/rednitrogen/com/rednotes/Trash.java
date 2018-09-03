@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,9 +34,6 @@ import notes.rednitrogen.com.rednotes.utils.MyDividerItemDecoration;
 import notes.rednitrogen.com.rednotes.utils.RecyclerTouchListener;
 
 public class Trash extends AppCompatActivity {
-
-    private InterstitialAd mInterstitialAd;
-
     private TrashAdapter mAdapter;
     private List<Note> deletedNotesList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
@@ -202,9 +198,6 @@ public class Trash extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (BuildConfig.FLAVOR.equals("free")){
-            loadInterstitialAd();
-        }
         super.onBackPressed();
         overridePendingTransition(R.anim.slidein_left, R.anim.slideout_left);
     }
@@ -213,29 +206,6 @@ public class Trash extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    private void loadInterstitialAd() {
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
-        mInterstitialAd.setAdListener(new AdListener() {
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                if(mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                }
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-            }
-        });
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mInterstitialAd.loadAd(adRequest);
     }
 
     @Override

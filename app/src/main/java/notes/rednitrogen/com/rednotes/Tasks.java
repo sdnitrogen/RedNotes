@@ -36,6 +36,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import com.allyants.notifyme.NotifyMe;
+import com.google.android.gms.ads.InterstitialAd;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.ParseException;
@@ -68,6 +69,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
     private AlertDialog alertDialog = null;
 
     private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
 
     Calendar reminderCal = Calendar.getInstance();
     long id;
@@ -421,16 +423,25 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
             case R.id.nav_tasks:
                 break;
             case R.id.nav_trash:
+                if (BuildConfig.FLAVOR.equals("free")){
+                    loadInterstitialAd();
+                }
                 intent = new Intent(this, Trash.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_settings:
+                if (BuildConfig.FLAVOR.equals("free")){
+                    loadInterstitialAd();
+                }
                 intent = new Intent(this, Settings.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_help_and_support:
+                if (BuildConfig.FLAVOR.equals("free")){
+                    loadInterstitialAd();
+                }
                 intent = new Intent(this, HelpAndSupport.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
@@ -489,5 +500,28 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         int  px = (int) (TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, dps, r.getDisplayMetrics()));
         return px;
+    }
+
+    private void loadInterstitialAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+        mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if(mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
     }
 }

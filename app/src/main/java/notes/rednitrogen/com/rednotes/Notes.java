@@ -48,6 +48,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import com.google.android.gms.ads.InterstitialAd;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.text.SimpleDateFormat;
@@ -85,6 +86,7 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
     boolean doubleBackToExitPressedOnce = false;
 
     private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -591,16 +593,25 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_trash:
+                if (BuildConfig.FLAVOR.equals("free")){
+                    loadInterstitialAd();
+                }
                 intent = new Intent(this, Trash.class);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_settings:
+                if (BuildConfig.FLAVOR.equals("free")){
+                    loadInterstitialAd();
+                }
                 intent = new Intent(this, Settings.class);
                 startActivityForResult(intent,1);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
                 break;
             case R.id.nav_help_and_support:
+                if (BuildConfig.FLAVOR.equals("free")){
+                    loadInterstitialAd();
+                }
                 intent = new Intent(this, HelpAndSupport.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
@@ -671,5 +682,28 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         int  px = (int) (TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, dps, r.getDisplayMetrics()));
         return px;
+    }
+
+    private void loadInterstitialAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+        mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if(mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
     }
 }
