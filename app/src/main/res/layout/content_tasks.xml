@@ -11,7 +11,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_tasks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"/>
 
     <TextView
         android:id="@+id/empty_tasks_view"
