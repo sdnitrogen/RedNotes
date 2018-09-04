@@ -17,12 +17,12 @@ android {
     flavorDimensions "version"
     productFlavors {
         free {
-            resValue "string", "launcher_name", "N2"
+            resValue "string", "app_name", "Nitrogen Notes"
             dimension "version"
             applicationId "notes.rednitrogen.com.rednotes.free"
         }
         paid {
-            resValue "string", "launcher_name", "N2 Plus"
+            resValue "string", "app_name", "Nitrogen Notes Premium"
             dimension "version"
             applicationId "notes.rednitrogen.com.rednotes.paid"
         }
@@ -34,7 +34,7 @@ android {
             applicationVariants.all { variant ->
                 variant.outputs.all {
                     def appName = "rednitrogen.notes"
-                    outputFileName = appName + "-${variant.versionName}.apk"
+                    outputFileName = appName + "-${variant.versionName}-${variant.flavorName}.apk"
                 }
             }
         }

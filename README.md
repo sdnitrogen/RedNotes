@@ -63,6 +63,7 @@ aka Nitrogen Notes is an offline Android Note/Task input application that is act
 - [ ] update : Night Mode
 - [ ] update : bottom sheet instead of actiondialog
 - [ ] update : Fingerprint authentication
+- [ ] update : export and import db
 
 ## Libraries
 [![Libraries](https://img.shields.io/badge/com.miguelcatalan:materialsearchview-%201.4.0-green.svg)](https://github.com/MiguelCatalan/MaterialSearchView)<br>
