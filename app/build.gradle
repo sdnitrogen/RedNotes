@@ -17,10 +17,12 @@ android {
     flavorDimensions "version"
     productFlavors {
         free {
+            resValue "string", "launcher_name", "N2"
             dimension "version"
             applicationId "notes.rednitrogen.com.rednotes.free"
         }
         paid {
+            resValue "string", "launcher_name", "N2 Plus"
             dimension "version"
             applicationId "notes.rednitrogen.com.rednotes.paid"
         }
