@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -107,6 +109,9 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setUpDrawerContent((NavigationView) findViewById(R.id.nv));
         ((NavigationView) findViewById(R.id.nv)).setCheckedItem(R.id.nav_notes);
+        if (BuildConfig.FLAVOR.equals("paid")){
+            ((NavigationView) findViewById(R.id.nv)).getMenu().findItem(R.id.nav_block_ad).setVisible(false);
+        }
 
         db = new DatabaseHelper(this);
         shPrefs = getSharedPreferences("Settings", MODE_PRIVATE);
@@ -615,6 +620,21 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
                 intent = new Intent(this, HelpAndSupport.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
+                break;
+            case R.id.nav_block_ad:
+                Uri uri = Uri.parse("market://details?id=notes.rednitrogen.com.rednotes.paid");
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=notes.rednitrogen.com.rednotes.paid")));
+                }
                 break;
             default:
                 break;

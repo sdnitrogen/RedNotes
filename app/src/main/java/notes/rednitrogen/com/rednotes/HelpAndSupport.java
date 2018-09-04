@@ -119,7 +119,7 @@ public class HelpAndSupport extends AppCompatActivity {
         findViewById(R.id.rateApp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Uri uri = Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID);
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Play market backstack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.
@@ -130,7 +130,7 @@ public class HelpAndSupport extends AppCompatActivity {
                     startActivity(goToMarket);
                 } catch (ActivityNotFoundException e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)));
                 }
             }
         });

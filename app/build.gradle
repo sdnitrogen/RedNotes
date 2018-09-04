@@ -22,7 +22,7 @@ android {
         }
         paid {
             dimension "version"
-            applicationId "cnotes.rednitrogen.com.rednotes.paid"
+            applicationId "notes.rednitrogen.com.rednotes.paid"
         }
     }
     buildTypes {

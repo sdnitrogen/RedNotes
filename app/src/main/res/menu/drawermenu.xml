@@ -32,6 +32,10 @@
                 android:id="@+id/nav_help_and_support"
                 android:icon="@drawable/ic_help_black_24dp"
                 android:title="@string/nav_help_and_support" />
+            <item
+                android:id="@+id/nav_block_ad"
+                android:icon="@drawable/ic_block_black_24dp"
+                android:title="@string/nav_block_ad" />
         </menu>
     </item>
 

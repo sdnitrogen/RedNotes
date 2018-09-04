@@ -1,10 +1,12 @@
 package notes.rednitrogen.com.rednotes;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -92,6 +94,9 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setUpDrawerContent((NavigationView) findViewById(R.id.nv));
         ((NavigationView) findViewById(R.id.nv)).setCheckedItem(R.id.nav_tasks);
+        if (BuildConfig.FLAVOR.equals("paid")){
+            ((NavigationView) findViewById(R.id.nv)).getMenu().findItem(R.id.nav_block_ad).setVisible(false);
+        }
 
         mydb = new TaskDBHelper(this);
 
@@ -445,6 +450,21 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
                 intent = new Intent(this, HelpAndSupport.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slidein, R.anim.slideout);
+                break;
+            case R.id.nav_block_ad:
+                Uri uri = Uri.parse("market://details?id=notes.rednitrogen.com.rednotes.paid");
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=notes.rednitrogen.com.rednotes.paid")));
+                }
                 break;
             default:
                 break;
