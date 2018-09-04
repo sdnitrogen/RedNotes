@@ -1,64 +1,40 @@
 ## RedNotes
-aka Nitrogen Notes is an offline Android Note/Task input application that is actively being worked on to implement new features , new design and better UX . It's simple , straightforward and easy.
+<img src="graphics/web_icon.png" align="left" width="200" hspace="10" vspace="10">
+aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/Task input application. It has all the basic & essential features for a note/task-reminder app and we also have plans to add more useful features  & better UX.<br/>
 
+<div style="display:flex;" >
+<a href="https://play.google.com/store/apps/details?id=notes.rednitrogen.com.rednotes.free">
+    <img alt="Get it on Google Play"
+        height="80"
+        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+</a>
+</div>
+</br></br>
 
-#### To-Do
-- [x] Main Notes Activity
-- [x] SQLite Database
-- [x] Recycler Listview
-- [x] Add , Edit , Delete from Database
-- [x] Populate Notes List
-- [x] Long press menu
-- [x] Implement share
-- [x] Add to Notification
-  - [x] More than one notification
-  - [x] Edit action button
-- [x] Create widget for Note
-- [x] Add to Widget
-- [x] Auto update widget when database update
-- [x] Swipe to delete and undo
-- [x] Add splash screen to avoid app name issue
-- [x] Advanced multiple widgets
-  - [x] redesign widget
-  - [x] updated preview
-  - [x] clickable listview
-- [x] Implement copy note
-- [x] Implement search functionality
-- [x] Navigation drawer from left
-  - [x] Notes, To-do/ Trash / Settings, Help & Support
-- [x] Implement To-do Task Activity
-  - [x] Strikethrough checked
-  - [x] Swipe to delete
-  - [x] Widget (unchecked)
-  - [x] fix widget refresh
-- [x] Design App Logo
-- [x] Implement Trash
-- [x] Settings
-  - [x] Reminder ON and time settings
-  - [x] Set Tasks reminder if settings ON
-  - [x] OFF asks for clear existing reminder
-  - [x] Night Mode settings
-  - [x] Auto-delete trash time settings
-  - [x] Add new notes to bottom OFF
-  - [x] Fingerprint authentication ON/OFF
-- [x] Help and Support
-  - [x] About
-  - [x] Version
-  - [x] Rate App
-  - [x] FAQ
-  - [x] Privacy Policy
-  - [x] Terms & Conditions
-  - [x] Contact fab
-- [x] Complete other Settings functionality
-  - [x] Add new notes to bottom
-  - [x] Reminder for Tasks
-    - [x] Create Notification
-	- [x] Update Notification
-	- [x] Remove all notifications
-  - [x] Auto-delete trash
-- [x] Ads
-- [x] Remove Ads option in navigation drawer
-- [ ] Publish + create developer page in Play Store
+## Screenshots
+<div style="display:flex;" >
+<img  src="graphics/screenshot_2.jpeg" width="19%" >
+<img style="margin-left:10px;" src="graphics/screenshot_3.jpeg" width="19%" >
+<img style="margin-left:10px;" src="graphics/screenshot_4.jpeg" width="19%" >
+<img style="margin-left:10px;" src="graphics/screenshot_5.jpeg" width="19%" >
+<img style="margin-left:10px;" src="graphics/screenshot_6.jpeg" width="19%" >
+
+</div>
+
+### Features
+- Offline SQLite Database
+- Add, Edit, Copy, Share Notes. Add to notification for quick view.
+- Search notes by keywords
+- Swipe to Delete
+- Limited time Trash
+- Tasks with reminder
+- Widgets for Notes and unchecked Tasks
+- Ads and Ad-free(paid) app versions
+
+### Upcoming features / To-Do
+- [ ] Create Ad-mob units , make necessary code changes/remove testDevice
+- [ ] Publish app
+- [ ] Developer page in Play Store
 - [ ] Change play store dev page link in about
 - [ ] update : Night Mode
 - [ ] update : bottom sheet instead of actiondialog
@@ -73,6 +49,7 @@ aka Nitrogen Notes is an offline Android Note/Task input application that is act
 
 ## Support Development
 Support development by making donation through Paypal<br>
+[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/rednitrogen)<br>
 [![Donate](https://www.freepngimg.com/thumb/paypal_donate_button/6-2-paypal-donate-button-png-file-thumb.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=red.nitrogen.n2@gmail.com&lc=US&item_name=Donation+to+Red+Nitrogen+Saikat+Datta&no_note=0&cn=&currency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted)
 
 ## License
