@@ -40,6 +40,7 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 - [ ] update : bottom sheet instead of actiondialog
 - [ ] update : Fingerprint authentication
 - [ ] update : export and import db
+- [ ] update : Google now integration
 
 ## Libraries
 [![Libraries](https://img.shields.io/badge/com.miguelcatalan:materialsearchview-%201.4.0-green.svg)](https://github.com/MiguelCatalan/MaterialSearchView)<br>
