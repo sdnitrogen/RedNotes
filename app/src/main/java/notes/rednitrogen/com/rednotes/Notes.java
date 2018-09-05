@@ -137,9 +137,8 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)fab.getLayoutParams();
             params.setMargins(0, 0, getPixelsFromDPs(Notes.this, 16), getPixelsFromDPs(Notes.this, 60)); //substitute parameters for left, top, right, bottom
             fab.setLayoutParams(params);
-            AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .build();
+            AdRequest adRequest = new AdRequest.Builder().build();
+                    /*.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)*/
             mAdView.setAdListener(new AdListener() {
                 @Override
                 public void onAdLoaded() {

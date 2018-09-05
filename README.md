@@ -32,7 +32,7 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 - Ads and Ad-free(paid) app versions
 
 ### Upcoming features / To-Do
-- [ ] Create Ad-mob units , make necessary code changes/remove testDevice
+- [x] Create Ad-mob units , make necessary code changes/remove testDevice
 - [ ] Publish app
 - [ ] Developer page in Play Store
 - [ ] Change play store dev page link in about
@@ -48,7 +48,7 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 [![Libraries](https://img.shields.io/badge/JitPack-jakebonk:notifyMe%201.0.0-green.svg)](https://jitpack.io/#jakebonk/NotifyMe)<br>
 
 ## Support Development
-Support development by making donation through Paypal<br>
+Support development by making donation through Paypal 
 [![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/rednitrogen)<br>
 [![Donate](https://www.freepngimg.com/thumb/paypal_donate_button/6-2-paypal-donate-button-png-file-thumb.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=red.nitrogen.n2@gmail.com&lc=US&item_name=Donation+to+Red+Nitrogen+Saikat+Datta&no_note=0&cn=&currency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted)
 

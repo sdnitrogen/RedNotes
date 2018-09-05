@@ -115,9 +115,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)fab.getLayoutParams();
             params.setMargins(0, 0, getPixelsFromDPs(Tasks.this, 16), getPixelsFromDPs(Tasks.this, 60)); //substitute parameters for left, top, right, bottom
             fab.setLayoutParams(params);
-            AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.setAdListener(new AdListener() {
                 @Override
                 public void onAdLoaded() {

@@ -82,7 +82,7 @@
         Report and send us a mail (preferably with screenshots)</string>
 
     <!-- AdMob ad unit IDs -->
-    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="banner_home_footer">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial_full_screen">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="admob_app_id">ca-app-pub-2083434115971367~4305125377</string>
+    <string name="banner_home_footer">ca-app-pub-2083434115971367/8870345902</string>
+    <string name="interstitial_full_screen">ca-app-pub-2083434115971367/4277205216</string>
 </resources>
