@@ -33,9 +33,9 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 
 ### Upcoming features / To-Do
 - [x] Create Ad-mob units , make necessary code changes/remove testDevice
-- [ ] Publish app
-- [ ] Developer page in Play Store
-- [ ] Change play store dev page link in about
+- [x] Publish app
+- [x] Developer page in Play Store
+- [x] Change play store dev page link in about
 - [ ] update : Night Mode
 - [ ] update : bottom sheet instead of actiondialog
 - [ ] update : Fingerprint authentication
