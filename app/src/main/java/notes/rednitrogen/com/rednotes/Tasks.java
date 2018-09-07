@@ -100,6 +100,7 @@ public class Tasks extends AppCompatActivity implements TaskRecyclerItemTouchHel
 
         mydb = new TaskDBHelper(this);
 
+        tasksList.clear();
         tasksList.addAll(mydb.getAllTasks());
 
         FloatingActionButton fab = findViewById(R.id.fab_tasks);

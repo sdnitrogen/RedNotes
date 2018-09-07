@@ -32,15 +32,16 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 - Ads and Ad-free(paid) app versions
 
 ### Upcoming features / To-Do
-- [x] Create Ad-mob units , make necessary code changes/remove testDevice
-- [x] Publish app
-- [x] Developer page in Play Store
-- [x] Change play store dev page link in about
 - [ ] update : Night Mode
 - [ ] update : bottom sheet instead of actiondialog
 - [ ] update : Fingerprint authentication
 - [ ] update : export and import db
 - [ ] update : Google now integration
+
+### Feedback suggestions
+- [ ] blank page > no fab > click on page to add
+- [ ] tap on note > open editor in a different screen
+- [ ] ellipsis-v icon to get other options
 
 ## Libraries
 [![Libraries](https://img.shields.io/badge/com.miguelcatalan:materialsearchview-%201.4.0-green.svg)](https://github.com/MiguelCatalan/MaterialSearchView)<br>
