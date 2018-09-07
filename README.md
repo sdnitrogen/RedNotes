@@ -42,6 +42,7 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 - [ ] blank page > no fab > click on page to add
 - [ ] tap on note > open editor in a different screen
 - [ ] ellipsis-v icon to get other options
+- [ ] notify of an update
 
 ## Libraries
 [![Libraries](https://img.shields.io/badge/com.miguelcatalan:materialsearchview-%201.4.0-green.svg)](https://github.com/MiguelCatalan/MaterialSearchView)<br>
