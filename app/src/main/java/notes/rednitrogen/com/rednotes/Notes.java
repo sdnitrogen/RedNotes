@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,11 +54,21 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import notes.rednitrogen.com.rednotes.R;
 import notes.rednitrogen.com.rednotes.database.DatabaseHelper;
@@ -209,6 +220,41 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
             showNoteDialog(true, notesList.get(pos), pos);
             NotificationManagerCompat manager = NotificationManagerCompat.from(this);
             manager.cancel(pos);
+        }
+
+        new jsonBaby().execute();
+        if (shPrefs.getBoolean("doUpdate", false)){
+            if (shPrefs.getBoolean("doNotifyUpdate", false)){
+                new AlertDialog.Builder(this)
+                        .setTitle("New Version Available")
+                        .setMessage("Update your app to get the latest features and bug fixes.")
+                        .setPositiveButton("UPDATE NOW", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                shEditor.putBoolean("doNotifyUpdate", false);
+                                shEditor.commit();
+                                Uri uri = Uri.parse("market://details?id=" + BuildConfig.APPLICATION_ID);
+                                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                                // To count with Play market backstack, After pressing back button,
+                                // to taken back to our application, we need to add following flags to intent.
+                                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                try {
+                                    startActivity(goToMarket);
+                                } catch (ActivityNotFoundException e) {
+                                    startActivity(new Intent(Intent.ACTION_VIEW,
+                                            Uri.parse("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)));
+                                }
+                            }})
+                        .setNegativeButton("LATER", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                shEditor.putBoolean("doNotifyUpdate", false);
+                                shEditor.commit();
+                            }
+                        }).show();
+            }
         }
     }
 
@@ -724,5 +770,69 @@ public class Notes extends AppCompatActivity implements RecyclerItemTouchHelper.
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(adRequest);
+    }
+
+    public static JSONArray getJSONArrayFromURL(String urlString) throws IOException, JSONException {
+        HttpsURLConnection urlConnection = null;
+        URL url = new URL(urlString);
+        urlConnection = (HttpsURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+        urlConnection.setDoOutput(true);
+        urlConnection.connect();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        while ((line = br.readLine()) != null){
+            sb.append(line + "\n");
+        }
+        br.close();
+
+        String jsonString = sb.toString();
+        return new JSONArray(jsonString);
+    }
+
+    private class jsonBaby extends AsyncTask<String, Void, JSONArray>{
+
+        @Override
+        protected JSONArray doInBackground(String... strings) {
+            JSONArray jsonArray = null;
+            try{
+                jsonArray = getJSONArrayFromURL("https://raw.githubusercontent.com/AssassiNCrizR/RedNotes/master/app/free/release/output.json");
+            } catch (IOException e){
+                e.printStackTrace();
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+            return jsonArray;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                JSONObject jObj = jsonObject.getJSONObject("apkInfo");
+                int versionCode = jObj.getInt("versionCode");
+                if(versionCode != BuildConfig.VERSION_CODE){
+                    if(!shPrefs.getBoolean("doUpdate", false)){
+                        shEditor.putBoolean("doUpdate", true);
+                        shEditor.putBoolean("doNotifyUpdate", true);
+                        shEditor.commit();
+                    }
+                    else {
+                        shEditor.putBoolean("doNotifyUpdate", false);
+                        shEditor.commit();
+                    }
+                }
+                else {
+                    shEditor.putBoolean("doUpdate", false);
+                    shEditor.putBoolean("doNotifyUpdate", false);
+                    shEditor.commit();
+                }
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
     }
 }
