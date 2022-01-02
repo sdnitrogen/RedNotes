@@ -52,8 +52,7 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 
 ## Support Development
 Support development by making donation through Paypal 
-[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/rednitrogen)<br>
-[![Donate](https://www.freepngimg.com/thumb/paypal_donate_button/6-2-paypal-donate-button-png-file-thumb.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=red.nitrogen.n2@gmail.com&lc=US&item_name=Donation+to+Red+Nitrogen+Saikat+Datta&no_note=0&cn=&currency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted)
+[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/sdnitrogen)<br>
 
 ## License
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)<br>
