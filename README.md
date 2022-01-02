@@ -51,8 +51,9 @@ aka Nitrogen Notes is an offline simple, fluid & material-designed Android Note/
 [![Libraries](https://img.shields.io/badge/JitPack-jakebonk:notifyMe%201.0.0-green.svg)](https://jitpack.io/#jakebonk/NotifyMe)<br>
 
 ## Support Development
-Support development by making donation through Paypal <br>
-[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/sdnitrogen)<br>
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/sdnitrogen) <br> 
+[![Donate](https://img.shields.io/badge/Donate-Paypal-blue?style=for-the-badge)](https://www.paypal.me/sdnitrogen)
 
 ## License
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)<br>
